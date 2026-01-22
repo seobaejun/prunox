@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>에어컨 정밀청소 - 푸르녹스</title>
+    <meta name="description" content="에어컨 정밀청소 전문 서비스, 푸르녹스">
+    <meta name="keywords" content="푸르녹스, 에어컨 정밀청소, 에어컨 청소, 전문청소">
+    <link rel="icon" type="image/x-icon" href="assets/images/svg/favicon.svg">
+    <link rel="stylesheet" href="assets/css/swap.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/swiper.min.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=21">
+    <link rel="stylesheet" href="assets/css/media_query.css">
+</head>
+
+<body>
+    <!-- ====================================== Preloader ===================================== -->
+    <div class="page-loader">
+        <div class="leap-frog">
+            <div class="leap-frog__dot"></div>
+            <div class="leap-frog__dot"></div>
+            <div class="leap-frog__dot"></div>
+        </div>
+    </div>
+    <!-- ====================================== Header ===================================== -->
+    <div class="overlay" id="overlay"></div>
+    <header class="header" id="top-navbar">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/프르녹스로고.png" alt="푸르녹스" style="max-height: 60px;">
+            </a>
+            <div class="hamburger" id="hamburger">
+                <img src="assets/images/svg/menu2.svg" class="menu-icon" alt="menu2">
+                <img src="assets/images/svg/close-icon.svg" alt="close-icon" class="close-icon">
+            </div>
+            <nav class="nav" id="main-menu">
+                <img class="dsad" src="assets/images/home/dsad.png" alt="dsad">
+                <div class="for-mobile-menu position-relative">
+                    <a href="index.html" class="mobile-logo">
+                        <img src="assets/images/프르녹스로고.png" alt="푸르녹스" style="max-height: 50px;">
+                    </a>
+                    <ul class="menu">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">회사소개
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="about.html">인사말</a></li>
+                                <li><a href="about.html#mapsss">오시는길</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">비즈니스 클리닝
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="office.html">사무실청소</a></li>
+                                <li><a href="store.html">상업시설청소</a></li>
+                                <li><a href="floor.html">바닥왁스코팅</a></li>
+                                <li><a href="carpet.html">카페트클리닝</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">기관·건물 클리닝
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="government.html">관공서청소</a></li>
+                                <li><a href="school.html">학교청소</a></li>
+                                <li><a href="building.html">준공청소</a></li>
+                                <li><a href="building02.html">외벽청소</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">특수청소
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="trash.html">쓰레기집청소</a></li>
+                                <li><a href="death.html">유품정리</a></li>
+                                <li><a href="waste.html">폐기물 처리</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">전문청소
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="aircon.html">에어컨 정밀청소</a></li>
+                                <li><a href="bug.html">방역소독</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">고객센터
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="customer.html#online">온라인 견적문의</a></li>
+                                <li><a href="customer.html#notice">공지사항</a></li>
+                                <li><a href="customer.html#contact">문의하기</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav-actions">
+                    <div class="call">
+                        <div class="headphone-main">
+                            <img src="assets/images/svg/headphone-icon.svg" alt="headphone-icon">
+                        </div>
+                        <div class="need-help-main">
+                            <p>상담전화</p>
+                            <a href="tel:010-3271-9995">010-3271-9995</a>
+                        </div>
+                    </div>
+                    <a href="customer.html#online" class="btn-quote get-quote-btn">견적문의
+                        <img src="assets/images/svg/cross-arrow.svg" alt="cross-arrow">
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- ====================================== Air Conditioner Cleaning Hero Section ===================================== -->
+    <section class="heroSection" style="background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.88) 27.86%, rgba(0, 0, 0, 0.00) 100%), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop'); padding: 350px 0 150px !important; min-height: 700px !important;">
+        <div class="container">
+            <h1 class="img-header-text fade_down">에어컨 정밀청소</h1>
+            <div class="breadcrumb-group fade_up">
+                <a href="index.html">홈 / </a>
+                <a href="index.html#services">서비스 / </a>
+                <a href="aircon.html">에어컨 정밀청소</a>
+            </div>
+        </div>
+    </section>
+    <!-- ====================================== Section Eight - Service Detail ===================================== -->
+    <section class="section-eight">
+        <div class="container">
+            <div class="row all-services-row">
+                <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12">
+                    <h2 class="sec-text pb-0 fade_up">서비스 안내</h2>
+                    <img class="layers-img1 zoom_in" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop" alt="에어컨 정밀청소">
+                    <p class="fusce pb-2">에어컨은 실내공기를 흡입하여 배출하는 방식으로 제품의 내부에 오염과 세균이 발생하기 아주 좋은 환경입니다. 이렇게 오염된 에어컨을 가동하게 되면 내부의 오염과 세균이 실내공기로 배출되어 천식, 알레르기성 비염 등의 호흡기 질환과 냉방병을 발생시킬 수 있기 때문에 전문가의 관리를 통해 정기적인 관리가 필요합니다. 에어컨 전문 청소마스터가 고객님의 에어컨을 안전하게 분해하여 내부의 모든 오염과 세균을 제거하여 오랫동안 깨끗하게 에어컨을 사용할 수 있도록 최상의 컨디션을 만들어드립니다.</p>
+                    
+                    <h3 class="ourServicesPrcoes mt-0">에어컨 분해청소 서비스 범위</h3>
+                    
+                    <div class="row" style="margin-top: 40px;">
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 mb-4">
+                            <div class="zoom_in">
+                                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="1차 청소" style="width: 100%; height: 280px; object-fit: cover; border-radius: 15px; margin-bottom: 20px;">
+                                <h4 style="font-size: 20px; font-weight: 600; margin-bottom: 15px; color: #00C2FF;">1차 청소</h4>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                                        <span style="position: absolute; left: 0; color: #00C2FF;">✓</span>
+                                        에어컨 및 주변 보양 작업
+                                    </li>
+                                    <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                                        <span style="position: absolute; left: 0; color: #00C2FF;">✓</span>
+                                        전면커버, 필터, 송풍기분해
+                                    </li>
+                                    <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                                        <span style="position: absolute; left: 0; color: #00C2FF;">✓</span>
+                                        분리된 에어컨 부품 세척 작업
+                                    </li>
+                                    <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                                        <span style="position: absolute; left: 0; color: #00C2FF;">✓</span>
+                                        에어컨 내부에 전용 세제도포
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 mb-4">
+                            <div class="zoom_in">
+                                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="2차 청소" style="width: 100%; height: 280px; object-fit: cover; border-radius: 15px; margin-bottom: 20px;">
+                                <h4 style="font-size: 20px; font-weight: 600; margin-bottom: 15px; color: #00C2FF;">2차 청소</h4>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                                        <span style="position: absolute; left: 0; color: #00C2FF;">✓</span>
+                                        고압세척으로 세제 및 오염 제거
+                                    </li>
+                                    <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                                        <span style="position: absolute; left: 0; color: #00C2FF;">✓</span>
+                                        에어컨 외부의 오염 및 얼룩제거
+                                    </li>
+                                    <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                                        <span style="position: absolute; left: 0; color: #00C2FF;">✓</span>
+                                        실외기 상태 점검
+                                    </li>
+                                    <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                                        <span style="position: absolute; left: 0; color: #00C2FF;">✓</span>
+                                        시운전 및 작동 상태 점검
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="ourServicesPrcoes mt-0">에어컨 분해청소 서비스 대상</h3>
+                    <div class="row" style="margin-top: 40px;">
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 mb-3">
+                            <div style="display: flex; align-items: flex-start; gap: 15px;">
+                                <span style="color: #00C2FF; font-size: 24px; font-weight: bold;">✓</span>
+                                <div>
+                                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">일반가정</h4>
+                                    <p style="color: #666; line-height: 1.6;">에어컨 성능 유지와 실내 공기질 관리가 필요한 일반 가정</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 mb-3">
+                            <div style="display: flex; align-items: flex-start; gap: 15px;">
+                                <span style="color: #00C2FF; font-size: 24px; font-weight: bold;">✓</span>
+                                <div>
+                                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">상업시설</h4>
+                                    <p style="color: #666; line-height: 1.6;">고객들의 만족도 관리가 중요한 상업시설</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 mb-3">
+                            <div style="display: flex; align-items: flex-start; gap: 15px;">
+                                <span style="color: #00C2FF; font-size: 24px; font-weight: bold;">✓</span>
+                                <div>
+                                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">오피스시설</h4>
+                                    <p style="color: #666; line-height: 1.6;">실내 환기가 어려워 공기질 관리가 필요한 업무환경</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 mb-3">
+                            <div style="display: flex; align-items: flex-start; gap: 15px;">
+                                <span style="color: #00C2FF; font-size: 24px; font-weight: bold;">✓</span>
+                                <div>
+                                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">의료기관</h4>
+                                    <p style="color: #666; line-height: 1.6;">환자들의 건강을 위해 위생적인 관리가 필요한 의료기관</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 mb-3">
+                            <div style="display: flex; align-items: flex-start; gap: 15px;">
+                                <span style="color: #00C2FF; font-size: 24px; font-weight: bold;">✓</span>
+                                <div>
+                                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">교육기관</h4>
+                                    <p style="color: #666; line-height: 1.6;">학생들이 이용하는 학교, 도서관, 학원 등의 교육시설</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 mb-3">
+                            <div style="display: flex; align-items: flex-start; gap: 15px;">
+                                <span style="color: #00C2FF; font-size: 24px; font-weight: bold;">✓</span>
+                                <div>
+                                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">공공시설</h4>
+                                    <p style="color: #666; line-height: 1.6;">다양한 사람들이 이용할 수 있는 공공시설 냉난방기 청소</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-8 all-service-col" style="position: sticky; top: 120px; align-self: flex-start;">
+                    <div class="services-list-box zoom_in">
+                        <h2 class="all-service-text">전체 서비스</h2>
+                        <div class="roofing-services-list-main">
+                            <a href="aircon.html" class="service-list-arow-main active">
+                                <p>에어컨 정밀청소</p>
+                                <img src="assets/images/svg/cross-arrow.svg" alt="right-arrow">
+                            </a>
+                            <a href="bug.html" class="service-list-arow-main mb-0">
+                                <p>방역소독</p>
+                                <img src="assets/images/svg/cross-arrow.svg" alt="right-arrow">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-adds-main zoom_in">
+                        <div class="adds-details-main">
+                            <img class="adds-img-home w-100" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="adds-img-home">
+                            <img class="shape-img" src="assets/images/house-cleaning/download.png" alt="download">
+                            <h3>첫 서비스 10% 할인</h3>
+                            <a href="customer.html#contact" class="btn-quote">문의하기
+                                <img src="assets/images/svg/cross-arrow.svg" alt="cross-arrow">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ====================================== Section Form ===================================== -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="row form-sec-row">
+                <div class="col-xxl-6 col-xl-6 col-lg-5">
+                    <p class="cap-text fade_up">문의하기</p>
+                    <h2 class="sec-text get-toch fade_up">문의하기</h2>
+                    <p class="sec-sub-text fade_up">푸르녹스에 문의하시면 전문 상담사가 고객님의 요구사항을 정확히 파악하고 최적의 청소 솔루션을 제안해드립니다. 언제든지 편하게 연락주세요.</p>
+                    <p class="call-support-text">24시간 상담센터</p>
+                    <a href="tel:010-3271-9995" class="tel-num">010-3271-9995</a>
+                    <div class="adres-main-home fade_up">
+                        <div>
+                            <p class="call-support-text">주소</p>
+                            <p class="tel-num addees">경기도 용인시 기흥구 신구로54번길 4, 1층 푸르녹스 종합환경</p>
+                        </div>
+                        <div>
+                            <p class="call-support-text">이메일 주소</p>
+                            <a href="mailto:prunox@naver.com" class="tel-num addees">prunox@naver.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-7">
+                    <div class="contac-form-main zoom_in">
+                        <div class="calcult-from-grid contac-form">
+                            <div>
+                                <h3 class="input-label-text">성함*</h3>
+                                <input type="text" placeholder="성함을 입력하세요" name="full name" autocomplete="off">
+                            </div>
+                            <div>
+                                <h3 class="input-label-text">이메일 주소*</h3>
+                                <input type="email" placeholder="이메일을 입력하세요" name="email" autocomplete="off">
+                            </div>
+                            <div>
+                                <h3 class="input-label-text">전화번호*</h3>
+                                <input type="text" placeholder="전화번호를 입력하세요" name="phone" autocomplete="off">
+                            </div>
+                            <div>
+                                <h3 class="input-label-text">청소 영역 선택*</h3>
+                                <div class="input-main">
+                                    <div class="wrapper">
+                                        <div class="formDropDown">목록에서 선택
+                                            <img class="arrow-icon-form" src="assets/images/svg/dropdown-arrow.svg" alt="arrow-icon-form">
+                                        </div>
+                                        <div class="position-relative">
+                                            <ul class="formDropDown-ul-list">
+                                                <li><a href="javascript:void(0)">전체 청소</a></li>
+                                                <li><a href="javascript:void(0)">주거 청소</a></li>
+                                                <li><a href="javascript:void(0)">주방 청소</a></li>
+                                                <li><a href="javascript:void(0)">사무실 청소</a></li>
+                                                <li><a href="javascript:void(0)">창문 청소</a></li>
+                                                <li><a href="javascript:void(0)">기업 청소</a></li>
+                                                <li><a href="javascript:void(0)">카펫 청소</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="your-message-input">
+                            <h3 class="input-label-text">문의 내용</h3>
+                            <input type="text" placeholder="문의 내용을 입력하세요" name="message" autocomplete="off">
+                        </div>
+                        <div class="get-cost-estimate send-main-btn">
+                            <a href="#" class="btn-quote">문의하기
+                                <img src="assets/images/svg/cross-arrow.svg" alt="cross-arrow">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ====================================== Footer Section ===================================== -->
+    <footer style="background: #000; color: #fff;">
+        <div class="container">
+            <div class="row footer-row-quick" style="padding: 60px 0;">
+                <div class="col-xxl-4 col-xl-4 col-lg-4">
+                    <div style="margin-bottom: 30px;">
+                        <img src="assets/images/프르녹스로고.png" alt="푸르녹스" style="max-width: 300px; filter: brightness(0) invert(1);">
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4">
+                    <div style="margin-bottom: 30px;">
+                        <p style="color: #ccc; line-height: 1.8; font-size: 14px; margin-bottom: 10px;">
+                            대표자 : 김도환<br>
+                            사업자 등록번호 : 293-76-00631<br>
+                            TEL : 010-3271-9995<br>
+                            Mobile : 010-3271-9995<br>
+                            E-MAIL : prunox@naver.com<br>
+                            본사 : 경기도 용인시 기흥구 신구로54번길 4, 1층 푸르녹스 종합환경<br>
+                            COPYRIGHT(C) PRUNOX. ALL RIGHTS RESERVED.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4" style="margin-left: auto;">
+                    <div style="margin-bottom: 30px;">
+                        <h2 style="color: #fff; font-size: 18px; font-weight: 600; margin-bottom: 15px;">NH 농협은행</h2>
+                        <p style="color: #fff; font-size: 22px; font-weight: 700; margin-bottom: 15px; letter-spacing: 1px;">302-2094-2397-71</p>
+                        <p style="color: #ccc; font-size: 14px; line-height: 1.6;">예금주 김도환(푸르녹스 종합환경)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ====================== Bottom To Top Button ======================= -->
+    <button class="bottom-top-button">↑</button>
+    <script src="assets/javascript/jquery.js"></script>
+    <script src="assets/javascript/bootstrap.min.js"></script>
+    <script src="assets/javascript/swiper-bundle.min.js"></script>
+    <script src="assets/javascript/smooth-scroll.js"></script>
+    <script src="assets/javascript/gsap.js"></script>
+    <script src="assets/javascript/scrollMagic.min.js"></script>
+    <script src="assets/javascript/animation.gsap.min.js"></script>
+    <script src="assets/javascript/script.js"></script>
+</body>
+
+</html>
+

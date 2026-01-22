@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터 - 푸르녹스</title>
+    <meta name="description" content="푸르녹스 고객센터 - 온라인 견적문의, 공지사항">
+    <meta name="keywords" content="푸르녹스, 고객센터, 견적문의, 공지사항">
+    <link rel="icon" type="image/x-icon" href="assets/images/svg/favicon.svg">
+    <link rel="stylesheet" href="assets/css/swap.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/swiper.min.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=15">
+    <link rel="stylesheet" href="assets/css/media_query.css">
+</head>
+
+<body>
+    <!-- ====================================== Preloader ===================================== -->
+    <div class="page-loader">
+        <div class="leap-frog">
+            <div class="leap-frog__dot"></div>
+            <div class="leap-frog__dot"></div>
+            <div class="leap-frog__dot"></div>
+        </div>
+    </div>
+    <!-- ====================================== Header ===================================== -->
+    <div class="overlay" id="overlay"></div>
+    <header class="header" id="top-navbar">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/프르녹스로고.png" alt="푸르녹스" style="max-height: 60px;">
+            </a>
+            <div class="hamburger" id="hamburger">
+                <img src="assets/images/svg/menu2.svg" class="menu-icon" alt="menu2">
+                <img src="assets/images/svg/close-icon.svg" alt="close-icon" class="close-icon">
+            </div>
+            <nav class="nav" id="main-menu">
+                <img class="dsad" src="assets/images/home/dsad.png" alt="dsad">
+                <div class="for-mobile-menu position-relative">
+                    <a href="index.html" class="mobile-logo">
+                        <img src="assets/images/프르녹스로고.png" alt="푸르녹스" style="max-height: 50px;">
+                    </a>
+                    <ul class="menu">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">회사소개
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="about.html">인사말</a></li>
+                                <li><a href="about.html#mapsss">오시는길</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">비즈니스 클리닝
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="office.html">사무실청소</a></li>
+                                <li><a href="store.html">상업시설청소</a></li>
+                                <li><a href="floor.html">바닥왁스코팅</a></li>
+                                <li><a href="carpet.html">카페트클리닝</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">기관·건물 클리닝
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="government.html">관공서청소</a></li>
+                                <li><a href="school.html">학교청소</a></li>
+                                <li><a href="building.html">준공청소</a></li>
+                                <li><a href="building02.html">외벽청소</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">특수청소
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="trash.html">쓰레기집청소</a></li>
+                                <li><a href="death.html">유품정리</a></li>
+                                <li><a href="waste.html">폐기물 처리</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">전문청소
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="aircon.html">에어컨 정밀청소</a></li>
+                                <li><a href="bug.html">방역소독</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);">고객센터
+                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
+                                <span class="dots-circle"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a href="customer.html#online">온라인 견적문의</a></li>
+                                <li><a href="customer.html#notice">공지사항</a></li>
+                                <li><a href="customer.html#contact">문의하기</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav-actions">
+                    <div class="call">
+                        <div class="headphone-main">
+                            <img src="assets/images/svg/headphone-icon.svg" alt="headphone-icon">
+                        </div>
+                        <div class="need-help-main">
+                            <p>상담전화</p>
+                            <a href="tel:010-3271-9995">010-3271-9995</a>
+                        </div>
+                    </div>
+                    <a href="online.html" class="btn-quote get-quote-btn">견적문의
+                        <img src="assets/images/svg/cross-arrow.svg" alt="cross-arrow">
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- ====================================== Customer Center Hero Section ===================================== -->
+    <section class="heroSection" style="background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.88) 27.86%, rgba(0, 0, 0, 0.00) 100%), url('assets/images/call-center-2026-01-07-07-26-14-utc.jpg'); padding: 350px 0 150px !important; min-height: 700px !important;">
+        <div class="container">
+            <h1 class="img-header-text fade_down">고객센터</h1>
+            <div class="breadcrumb-group fade_up">
+                <a href="index.html">홈 / </a>
+                <a href="customer.html"> 고객센터</a>
+            </div>
+        </div>
+    </section>
+    <!-- ====================================== 온라인 견적문의 Section ===================================== -->
+    <section id="online" style="background: #fff; padding: 100px 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 42px; font-weight: 700; margin-bottom: 20px;">
+                    <span style="color: #00C2FF;">온라인 견적문의</span>
+                </h2>
+            </div>
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <form class="quote-form" style="border: 2px solid #00C2FF; border-radius: 20px; padding: 40px; background: #fff;">
+                    <div class="calcult-from-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div>
+                            <h3 class="input-label-text">고객명<span style="color: red;">*</span></h3>
+                            <input type="text" placeholder="고객명을 입력해주세요." name="customer_name" autocomplete="off" required style="width: 100%; padding: 15px; border: 2px solid #F5F6F7; border-radius: 10px; font-size: 16px; outline: none;">
+                        </div>
+                        <div>
+                            <h3 class="input-label-text">연락처<span style="color: red;">*</span></h3>
+                            <input type="text" placeholder="연락처를 입력해주세요." name="contact" autocomplete="off" required style="width: 100%; padding: 15px; border: 2px solid #F5F6F7; border-radius: 10px; font-size: 16px; outline: none;">
+                        </div>
+                    </div>
+                    <div class="calcult-from-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div>
+                            <h3 class="input-label-text">주소</h3>
+                            <input type="text" placeholder="주소를 입력해주세요." name="address" autocomplete="off" style="width: 100%; padding: 15px; border: 2px solid #F5F6F7; border-radius: 10px; font-size: 16px; outline: none;">
+                        </div>
+                        <div>
+                            <h3 class="input-label-text">평수/면적</h3>
+                            <input type="text" placeholder="대략적인 면적(평수)를 입력해주세요." name="area" autocomplete="off" style="width: 100%; padding: 15px; border: 2px solid #F5F6F7; border-radius: 10px; font-size: 16px; outline: none;">
+                        </div>
+                    </div>
+                    <div class="calcult-from-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div>
+                            <h3 class="input-label-text">서비스</h3>
+                            <input type="text" placeholder="필요하신 서비스를 입력해주세요." name="service" autocomplete="off" style="width: 100%; padding: 15px; border: 2px solid #F5F6F7; border-radius: 10px; font-size: 16px; outline: none;">
+                        </div>
+                        <div>
+                            <h3 class="input-label-text">서비스 요청일</h3>
+                            <input type="date" name="service_date" style="width: 100%; padding: 15px; border: 2px solid #F5F6F7; border-radius: 10px; font-size: 16px; position: relative; outline: none;">
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3 class="input-label-text">현장사진</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                            <div>
+                                <input type="file" id="file1" name="photo1" accept="image/*" style="display: none;">
+                                <label for="file1" style="display: inline-block; padding: 10px 20px; background: #f9f9f9; border: 2px solid #F5F6F7; border-radius: 10px; cursor: pointer; font-size: 14px;">파일 선택</label>
+                                <span id="file1-name" style="margin-left: 10px; color: #999; font-size: 14px;">선택된 파일 없음</span>
+                            </div>
+                            <div>
+                                <input type="file" id="file2" name="photo2" accept="image/*" style="display: none;">
+                                <label for="file2" style="display: inline-block; padding: 10px 20px; background: #f9f9f9; border: 2px solid #F5F6F7; border-radius: 10px; cursor: pointer; font-size: 14px;">파일 선택</label>
+                                <span id="file2-name" style="margin-left: 10px; color: #999; font-size: 14px;">선택된 파일 없음</span>
+                            </div>
+                            <div>
+                                <input type="file" id="file3" name="photo3" accept="image/*" style="display: none;">
+                                <label for="file3" style="display: inline-block; padding: 10px 20px; background: #f9f9f9; border: 2px solid #F5F6F7; border-radius: 10px; cursor: pointer; font-size: 14px;">파일 선택</label>
+                                <span id="file3-name" style="margin-left: 10px; color: #999; font-size: 14px;">선택된 파일 없음</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3 class="input-label-text">문의사항</h3>
+                        <textarea name="inquiry" placeholder="문의사항을 입력해주세요." rows="6" style="width: 100%; padding: 15px; border: 2px solid #F5F6F7; border-radius: 10px; font-size: 16px; resize: vertical; font-family: inherit; outline: none;"></textarea>
+                    </div>
+                    <div style="margin-bottom: 30px;">
+                        <h3 class="input-label-text">개인정보 수집 및 이용동의</h3>
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <input type="checkbox" id="privacy_consent" name="privacy_consent" required style="margin-top: 5px; width: 20px; height: 20px; cursor: pointer;">
+                            <label for="privacy_consent" style="font-size: 14px; line-height: 1.6; cursor: pointer;">
+                                <strong>개인정보의 수집·이용 목적</strong><br>
+                                서비스 제공 및 계약의 이행, 구매 및 대금결제, 물품배송 또는 청구지 발송, 회원관리 등을 위한 목적
+                            </label>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn-quote" style="padding: 15px 50px; font-size: 18px; font-weight: 600;">
+                            견적 요청하기
+                            <img src="assets/images/svg/cross-arrow.svg" alt="cross-arrow">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- ====================================== Section Notice ===================================== -->
+    <section id="notice" style="background: #fff; padding: 100px 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 42px; font-weight: 700; margin-bottom: 20px;">
+                    <span style="color: #00C2FF;">News</span> · Notice
+                </h2>
+                <h3 style="font-size: 20px; color: #666;">푸르녹스의 주요 소식입니다.</h3>
+            </div>
+            <table style="width: 100%; max-width: 1200px; margin: 0 auto; border-collapse: collapse;">
+                <tbody>
+                    <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;">
+                        <td style="padding: 20px;">
+                            <h3 style="font-size: 18px; font-weight: 500;">
+                                <a href="customer.html" style="color: #000; text-decoration: none; transition: color 0.3s;">무한돌봄네트워크팀 사례관리대상자 가정 방역 및 청소...</a>
+                            </h3>
+                        </td>
+                        <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">2025-11-12 +</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;">
+                        <td style="padding: 20px;">
+                            <h3 style="font-size: 18px; font-weight: 500;">
+                                <a href="customer.html" style="color: #000; text-decoration: none; transition: color 0.3s;">구리시 갈매동, 주거 청소로 이웃의 삶에 따뜻함을 ...</a>
+                            </h3>
+                        </td>
+                        <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">2025-11-12 +</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;">
+                        <td style="padding: 20px;">
+                            <h3 style="font-size: 18px; font-weight: 500;">
+                                <a href="customer.html" style="color: #000; text-decoration: none; transition: color 0.3s;">푸르녹스·남양주시소상공인연합회, 한부모가정 청소 봉사</a>
+                            </h3>
+                        </td>
+                        <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">2025-05-27 +</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;">
+                        <td style="padding: 20px;">
+                            <h3 style="font-size: 18px; font-weight: 500;">
+                                <a href="customer.html" style="color: #000; text-decoration: none; transition: color 0.3s;">남양주시 소상공인연합회·푸르녹스, 장애인 부부 청소 ...</a>
+                            </h3>
+                        </td>
+                        <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">2025-05-27 +</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;">
+                        <td style="padding: 20px;">
+                            <h3 style="font-size: 18px; font-weight: 500;">
+                                <a href="customer.html" style="color: #000; text-decoration: none; transition: color 0.3s;">갈매동 복지협의체, 푸르녹스와 복지지원 협약 체결</a>
+                            </h3>
+                        </td>
+                        <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">2025-05-27 +</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <!-- ====================================== Section Form ===================================== -->
+    <section id="contact" class="contact-form-section">
+        <div class="container">
+            <div class="row form-sec-row">
+                <div class="col-xxl-6 col-xl-6 col-lg-5">
+                    <p class="cap-text fade_up">문의하기</p>
+                    <h2 class="sec-text get-toch fade_up">문의하기</h2>
+                    <p class="sec-sub-text fade_up">푸르녹스에 문의하시면 전문 상담사가 고객님의 요구사항을 정확히 파악하고 최적의 청소 솔루션을 제안해드립니다. 언제든지 편하게 연락주세요.</p>
+                    <p class="call-support-text">24시간 상담센터</p>
+                    <a href="tel:010-3271-9995" class="tel-num">010-3271-9995</a>
+                    <div class="adres-main-home fade_up">
+                        <div>
+                            <p class="call-support-text">주소</p>
+                            <p class="tel-num addees">경기도 용인시 기흥구 신구로54번길 4, 1층 푸르녹스 종합환경</p>
+                        </div>
+                        <div>
+                            <p class="call-support-text">이메일 주소</p>
+                            <a href="mailto:prunox@naver.com" class="tel-num addees">prunox@naver.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-7">
+                    <div class="contac-form-main zoom_in">
+                        <div class="calcult-from-grid contac-form">
+                            <div>
+                                <h3 class="input-label-text">성함*</h3>
+                                <input type="text" placeholder="성함을 입력하세요" name="full name"
+                                    autocomplete="off">
+                            </div>
+                            <div>
+                                <h3 class="input-label-text">이메일 주소*</h3>
+                                <input type="email" placeholder="이메일을 입력하세요" name="email" autocomplete="off">
+                            </div>
+                            <div>
+                                <h3 class="input-label-text">전화번호*</h3>
+                                <input type="text" placeholder="전화번호를 입력하세요" name="phone" autocomplete="off">
+                            </div>
+                            <div>
+                                <h3 class="input-label-text">청소 영역 선택*</h3>
+                                <div class="input-main">
+                                    <div class="wrapper">
+                                        <div class="formDropDown">목록에서 선택
+                                            <img class="arrow-icon-form" src="assets/images/svg/dropdown-arrow.svg"
+                                                alt="arrow-icon-form">
+                                        </div>
+                                        <div class="position-relative">
+                                            <ul class="formDropDown-ul-list">
+                                                <li><a href="javascript:void(0)">전체 청소</a></li>
+                                                <li><a href="javascript:void(0)">주거 청소</a></li>
+                                                <li><a href="javascript:void(0)">주방 청소</a></li>
+                                                <li><a href="javascript:void(0)">사무실 청소</a></li>
+                                                <li><a href="javascript:void(0)">창문 청소</a></li>
+                                                <li><a href="javascript:void(0)">기업 청소</a></li>
+                                                <li><a href="javascript:void(0)">카펫 청소</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="your-message-input">
+                            <h3 class="input-label-text">문의 내용</h3>
+                            <input type="text" placeholder="문의 내용을 입력하세요" name="message" autocomplete="off">
+                        </div>
+                        <div class="get-cost-estimate send-main-btn">
+                            <a href="#" class="btn-quote">문의하기
+                                <img src="assets/images/svg/cross-arrow.svg" alt="cross-arrow">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <iframe class="map-iframe"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3174.7755045786676!2d127.10731051283135!3d37.27675027199893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b5a918a3e5367%3A0x50abdec0d7d788ca!2z6rK96riw64-EIOyaqeyduOyLnCDquLDtnaXqtawg7Iug6rWs66GcNTTrsojquLggNA!5e0!3m2!1sko!2skr!4v1768542796712!5m2!1sko!2skr"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+    <!-- ====================================== Footer Section ===================================== -->
+    <footer style="background: #000; color: #fff;">
+        <div class="container">
+            <div class="row footer-row-quick" style="padding: 60px 0;">
+                <div class="col-xxl-4 col-xl-4 col-lg-4">
+                    <div style="margin-bottom: 30px;">
+                        <img src="assets/images/프르녹스로고.png" alt="푸르녹스" style="max-width: 300px; filter: brightness(0) invert(1);">
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4">
+                    <div style="margin-bottom: 30px;">
+                        <p style="color: #ccc; line-height: 1.8; font-size: 14px; margin-bottom: 10px;">
+                            대표자 : 김도환<br>
+                            사업자 등록번호 : 293-76-00631<br>
+                            TEL : 010-3271-9995<br>
+                            Mobile : 010-3271-9995<br>
+                            E-MAIL : prunox@naver.com<br>
+                            본사 : 경기도 용인시 기흥구 신구로54번길 4, 1층 푸르녹스 종합환경<br>
+                            COPYRIGHT(C) PRUNOX. ALL RIGHTS RESERVED.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4" style="margin-left: auto;">
+                    <div style="margin-bottom: 30px;">
+                        <h2 style="color: #fff; font-size: 18px; font-weight: 600; margin-bottom: 15px;">NH 농협은행</h2>
+                        <p style="color: #fff; font-size: 22px; font-weight: 700; margin-bottom: 15px; letter-spacing: 1px;">302-2094-2397-71</p>
+                        <p style="color: #ccc; font-size: 14px; line-height: 1.6;">예금주 김도환(푸르녹스 종합환경)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ====================== Bottom To Top Button ======================= -->
+    <button class="bottom-top-button">↑</button>
+    <script src="assets/javascript/jquery.js"></script>
+    <script src="assets/javascript/bootstrap.min.js"></script>
+    <script src="assets/javascript/swiper-bundle.min.js"></script>
+    <script src="assets/javascript/smooth-scroll.js"></script>
+    <script src="assets/javascript/gsap.js"></script>
+    <script src="assets/javascript/scrollMagic.min.js"></script>
+    <script src="assets/javascript/animation.gsap.min.js"></script>
+    <script src="assets/javascript/script.js"></script>
+    <script>
+        // 파일 선택 시 파일명 표시
+        document.getElementById('file1').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : '선택된 파일 없음';
+            document.getElementById('file1-name').textContent = fileName;
+        });
+        document.getElementById('file2').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : '선택된 파일 없음';
+            document.getElementById('file2-name').textContent = fileName;
+        });
+        document.getElementById('file3').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : '선택된 파일 없음';
+            document.getElementById('file3-name').textContent = fileName;
+        });
+    </script>
+</body>
+
+</html>
+
