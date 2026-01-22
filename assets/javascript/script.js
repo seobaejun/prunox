@@ -119,63 +119,60 @@ const swiper = new Swiper('.hero-slider', {
 
 /*------------------------------ Services Slider -------------------------*/
 let services;
-if (window.innerWidth > 991) {
-    services = new Swiper('.services-slider', {
-        loop: false,
-        speed: 1000,
-        slidesPerView: 3,
-        spaceBetween: 30,
-        autoplay: false,
-        centeredSlidesBounds: true,
-        breakpoints: {
-            992: {
-                slidesPerView: 3,
-                spaceBetween: 30
-            },
-        },
-        on: {
-            init: function() {
-                adjustSliderPosition(this);
-            },
-            resize: function() {
-                adjustSliderPosition(this);
-            },
-            update: function() {
-                adjustSliderPosition(this);
-            }
+
+function initServicesSlider() {
+    const isMobile = window.innerWidth <= 991;
+    
+    if (isMobile) {
+        // 모바일에서는 Swiper 초기화하지 않음
+        if (services) {
+            services.destroy(true, true);
+            services = null;
         }
-    });
-} else {
-    // 모바일에서는 Swiper 초기화하지 않음
-    services = null;
+        // Swiper wrapper를 일반 flexbox로 변환
+        const wrapper = document.querySelector('.services-slider .swiper-wrapper');
+        if (wrapper) {
+            wrapper.style.display = 'flex';
+            wrapper.style.flexDirection = 'column';
+            wrapper.style.transform = 'none';
+            wrapper.style.width = '100%';
+        }
+    } else {
+        // 데스크톱에서만 Swiper 초기화
+        if (!services) {
+            services = new Swiper('.services-slider', {
+                loop: false,
+                speed: 1000,
+                slidesPerView: 3,
+                spaceBetween: 30,
+                autoplay: false,
+                centeredSlidesBounds: true,
+                on: {
+                    init: function() {
+                        adjustSliderPosition(this);
+                    },
+                    resize: function() {
+                        adjustSliderPosition(this);
+                    },
+                    update: function() {
+                        adjustSliderPosition(this);
+                    }
+                }
+            });
+        }
+    }
 }
 
+// 초기화
+initServicesSlider();
+
 // 창 크기 변경 시 재초기화
+let resizeTimer;
 window.addEventListener('resize', function() {
-    if (window.innerWidth > 991 && !services) {
-        services = new Swiper('.services-slider', {
-            loop: false,
-            speed: 1000,
-            slidesPerView: 3,
-            spaceBetween: 30,
-            autoplay: false,
-            centeredSlidesBounds: true,
-            on: {
-                init: function() {
-                    adjustSliderPosition(this);
-                },
-                resize: function() {
-                    adjustSliderPosition(this);
-                },
-                update: function() {
-                    adjustSliderPosition(this);
-                }
-            }
-        });
-    } else if (window.innerWidth <= 991 && services) {
-        services.destroy(true, true);
-        services = null;
-    }
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        initServicesSlider();
+    }, 250);
 });
 
 function adjustSliderPosition(swiper) {

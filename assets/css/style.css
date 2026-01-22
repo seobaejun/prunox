@@ -883,24 +883,30 @@ button {
 @media (max-width: 991px) {
     .services-slider {
         overflow: visible !important;
+        display: block !important;
     }
     .services-slider .swiper-wrapper {
         display: flex !important;
         flex-direction: column !important;
         transform: none !important;
         width: 100% !important;
+        position: relative !important;
+        height: auto !important;
     }
     .cleaning-card {
         min-width: 100% !important;
         max-width: 100% !important;
         width: 100% !important;
-        margin-bottom: 20px !important;
+        margin-bottom: 30px !important;
+        margin-right: 0 !important;
     }
     .services-slider .swiper-slide {
         width: 100% !important;
         max-width: 100% !important;
         flex-shrink: 0 !important;
         height: auto !important;
+        position: relative !important;
+        transform: none !important;
     }
 }
 .cleaning-card-img-main {
