@@ -118,46 +118,75 @@ const swiper = new Swiper('.hero-slider', {
 });
 
 /*------------------------------ Services Slider -------------------------*/
-const services = new Swiper('.services-slider', {
-    loop: false,
-    speed: 1000,
-    slidesPerView: 3,
-    spaceBetween: 30,
-    autoplay: false,
-    centeredSlidesBounds: true,
-    breakpoints: {
-        991: {
-            slidesPerView: 3,
-            spaceBetween: 30
+let services;
+if (window.innerWidth > 991) {
+    services = new Swiper('.services-slider', {
+        loop: false,
+        speed: 1000,
+        slidesPerView: 3,
+        spaceBetween: 30,
+        autoplay: false,
+        centeredSlidesBounds: true,
+        breakpoints: {
+            992: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            },
         },
-        767: {
-            slidesPerView: 1,
-            spaceBetween: 20
-        },
-        400: {
-            slidesPerView: 1,
-            spaceBetween: 20
-        },
-        220: {
-            slidesPerView: 1,
-            spaceBetween: 12
-        },
-    },
-    on: {
-        init: function() {
-            adjustSliderPosition(this);
-        },
-        resize: function() {
-            adjustSliderPosition(this);
-        },
-        update: function() {
-            adjustSliderPosition(this);
+        on: {
+            init: function() {
+                adjustSliderPosition(this);
+            },
+            resize: function() {
+                adjustSliderPosition(this);
+            },
+            update: function() {
+                adjustSliderPosition(this);
+            }
         }
+    });
+} else {
+    // 모바일에서는 Swiper 초기화하지 않음
+    services = null;
+}
+
+// 창 크기 변경 시 재초기화
+window.addEventListener('resize', function() {
+    if (window.innerWidth > 991 && !services) {
+        services = new Swiper('.services-slider', {
+            loop: false,
+            speed: 1000,
+            slidesPerView: 3,
+            spaceBetween: 30,
+            autoplay: false,
+            centeredSlidesBounds: true,
+            on: {
+                init: function() {
+                    adjustSliderPosition(this);
+                },
+                resize: function() {
+                    adjustSliderPosition(this);
+                },
+                update: function() {
+                    adjustSliderPosition(this);
+                }
+            }
+        });
+    } else if (window.innerWidth <= 991 && services) {
+        services.destroy(true, true);
+        services = null;
     }
 });
 
 function adjustSliderPosition(swiper) {
     setTimeout(function() {
+        // 모바일에서는 중앙 정렬 비활성화
+        if (window.innerWidth <= 991) {
+            swiper.params.slidesOffsetBefore = 0;
+            swiper.update();
+            return;
+        }
+        
         const container = swiper.el;
         const wrapper = swiper.wrapperEl;
         const containerWidth = container.offsetWidth;

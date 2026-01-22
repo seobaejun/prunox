@@ -856,6 +856,12 @@ button {
     flex-shrink: 0;
     width: auto !important;
 }
+@media (max-width: 767px) {
+    .services-slider .swiper-slide {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
 
 .services-slider .swiper-wrapper {
     display: flex;
@@ -873,6 +879,29 @@ button {
     width: 100% !important;
     min-width: 400px !important;
     max-width: 450px !important;
+}
+@media (max-width: 991px) {
+    .services-slider {
+        overflow: visible !important;
+    }
+    .services-slider .swiper-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        transform: none !important;
+        width: 100% !important;
+    }
+    .cleaning-card {
+        min-width: 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-bottom: 20px !important;
+    }
+    .services-slider .swiper-slide {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex-shrink: 0 !important;
+        height: auto !important;
+    }
 }
 .cleaning-card-img-main {
     overflow: hidden;
