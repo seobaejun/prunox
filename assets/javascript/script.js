@@ -131,11 +131,11 @@ const services = new Swiper('.services-slider', {
             spaceBetween: 30
         },
         767: {
-            slidesPerView: 2,
+            slidesPerView: 1,
             spaceBetween: 20
         },
         400: {
-            slidesPerView: 2,
+            slidesPerView: 1,
             spaceBetween: 20
         },
         220: {
