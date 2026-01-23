@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 대시보드 - 푸르녹스</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            background: linear-gradient(135deg, #00C2FF 0%, #0099cc 100%);
+            color: white;
+            padding: 20px 0;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .sidebar .logo {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 20px;
+        }
+        .sidebar .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+        .sidebar .menu-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sidebar .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .sidebar .menu-item.active {
+            background: rgba(255,255,255,0.2);
+            border-left-color: white;
+        }
+        .sidebar .menu-item i {
+            font-size: 18px;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .topbar {
+            background: white;
+            padding: 15px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #00C2FF 0%, #0099cc 100%);
+            color: white;
+            border: none;
+        }
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        .badge {
+            padding: 5px 10px;
+        }
+        .detail-card {
+            margin-top: 20px;
+        }
+        .detail-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        .detail-value {
+            font-size: 16px;
+            color: #212529;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.5;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 0.25rem;
+            transition: opacity 0.2s;
+            border: none;
+            min-width: 60px;
+        }
+        .status-badge:hover {
+            opacity: 0.8;
+        }
+        .table th:last-child,
+        .table td:last-child {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="assets/images/프르녹스로고.png" alt="푸르녹스" style="filter: brightness(0) invert(1);">
+        </div>
+        <div class="menu-item active" data-section="estimate">
+            <i class="bi bi-file-earmark-text"></i> 온라인 견적문의
+        </div>
+        <div class="menu-item" data-section="notice">
+            <i class="bi bi-megaphone"></i> 공지사항
+        </div>
+        <div class="menu-item" data-section="contact">
+            <i class="bi bi-envelope"></i> 문의하기
+        </div>
+        <div class="menu-item" onclick="window.location.href='index.html'" style="position: absolute; bottom: 60px; width: 100%;">
+            <i class="bi bi-house"></i> 홈페이지
+        </div>
+        <div class="menu-item" onclick="logout()" style="position: absolute; bottom: 20px; width: 100%;">
+            <i class="bi bi-box-arrow-right"></i> 로그아웃
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="topbar">
+            <h4 class="mb-0">푸르녹스 관리자 대시보드</h4>
+            <div>
+                <span class="text-muted">관리자</span>
+            </div>
+        </div>
+
+        <!-- 온라인 견적문의 -->
+        <div id="estimate" class="content-section active">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0 text-white">온라인 견적문의</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>고객명</th>
+                                    <th>연락처</th>
+                                    <th>서비스 유형</th>
+                                    <th>제출일</th>
+                                    <th>상태</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="estimate-tbody">
+                                <tr><td colspan="7" class="text-center">등록된 견적문의가 없습니다.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 온라인 견적문의 상세 정보 -->
+            <div id="estimate-detail-card" class="card detail-card" style="display: none;">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 text-white">온라인 견적문의 상세 정보</h5>
+                    <button class="btn btn-sm btn-light" onclick="closeEstimateDetail()">닫기</button>
+                </div>
+                <div class="card-body" id="estimate-detail-content">
+                    <!-- 상세 정보가 여기에 동적으로 로드됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 공지사항 -->
+        <div id="notice" class="content-section">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 text-white">공지사항</h5>
+                    <button class="btn btn-sm btn-light" onclick="showNoticeForm()">공지사항 작성</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>제목</th>
+                                    <th>작성자</th>
+                                    <th>작성일</th>
+                                    <th>조회수</th>
+                                    <th>상태</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="notice-tbody">
+                                <tr><td colspan="7" class="text-center">등록된 공지사항이 없습니다.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 공지사항 작성 폼 -->
+        <div id="notice-add-section" class="content-section" style="display: none;">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 text-white" id="notice-form-title">공지사항 작성</h5>
+                    <button class="btn btn-sm btn-light" onclick="showNoticeList()">목록으로</button>
+                </div>
+                <div class="card-body">
+                    <form id="notice-form">
+                        <input type="hidden" id="notice-edit-id" value="">
+                        <div class="mb-3">
+                            <label for="notice-title" class="form-label">제목 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="notice-title" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="notice-content" class="form-label">내용 <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="notice-content" rows="10" required></textarea>
+                        </div>
+                        
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary" id="notice-submit-btn">작성하기</button>
+                            <button type="button" class="btn btn-secondary" onclick="resetNoticeForm()">초기화</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문의하기 -->
+        <div id="contact" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0 text-white">문의하기</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>이름</th>
+                                    <th>이메일</th>
+                                    <th>전화번호</th>
+                                    <th>청소 영역</th>
+                                    <th>제출일</th>
+                                    <th>상태</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contact-tbody">
+                                <tr><td colspan="8" class="text-center">등록된 문의가 없습니다.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 문의하기 상세 정보 -->
+            <div id="contact-detail-card" class="card detail-card" style="display: none;">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 text-white">문의하기 상세 정보</h5>
+                    <button class="btn btn-sm btn-light" onclick="closeContactDetail()">닫기</button>
+                </div>
+                <div class="card-body" id="contact-detail-content">
+                    <!-- 상세 정보가 여기에 동적으로 로드됩니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="assets/javascript/firebase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 로그인 체크 (세션 스토리지)
+        (function() {
+            const adminLoggedIn = sessionStorage.getItem('adminLoggedIn');
+            const loginTime = parseInt(sessionStorage.getItem('adminLoginTime') || '0');
+            const now = Date.now();
+            
+            if (adminLoggedIn !== 'true' || now - loginTime > 24 * 60 * 60 * 1000) {
+                // 로그인되지 않았거나 세션 만료
+                sessionStorage.removeItem('adminLoggedIn');
+                sessionStorage.removeItem('adminLoginTime');
+                window.location.href = 'admin-login.html';
+                return;
+            }
+        })();
+
+        // Firebase 초기화
+        let db;
+        if (typeof firebase !== 'undefined') {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+        }
+
+        // 메뉴 클릭 이벤트
+        document.querySelectorAll('.menu-item[data-section]').forEach(item => {
+            item.addEventListener('click', function() {
+                const section = this.getAttribute('data-section');
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                document.getElementById(section).classList.add('active');
+                document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 섹션별 데이터 로드
+                if (section === 'estimate') {
+                    loadEstimateList();
+                } else if (section === 'contact') {
+                    loadContactList();
+                } else if (section === 'notice') {
+                    loadNoticeList();
+                }
+            });
+        });
+
+        // 온라인 견적문의 목록 로드
+        async function loadEstimateList() {
+            if (!db) {
+                document.getElementById('estimate-tbody').innerHTML = '<tr><td colspan="8" class="text-center text-danger">Firebase가 초기화되지 않았습니다.</td></tr>';
+                return;
+            }
+
+            try {
+                const tbody = document.getElementById('estimate-tbody');
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center">로딩 중...</td></tr>';
+
+                const querySnapshot = await db.collection('estimates')
+                    .orderBy('createdAt', 'desc')
+                    .get();
+
+                if (querySnapshot.empty) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center">등록된 견적문의가 없습니다.</td></tr>';
+                    return;
+                }
+
+                let html = '';
+                let index = 1;
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const docId = doc.id;
+
+                    let createdAt = 'N/A';
+                    if (data.createdAt) {
+                        const date = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
+                        createdAt = date.toLocaleString('ko-KR');
+                    }
+
+                    const status = data.status || 'pending';
+                    const statusBadge = status === 'completed'
+                        ? `<button class="status-badge bg-success text-white" onclick="updateEstimateStatus('${docId}', 'pending')">완료</button>`
+                        : `<button class="status-badge bg-warning text-dark" onclick="updateEstimateStatus('${docId}', 'completed')">대기</button>`;
+
+                    html += `
+                        <tr>
+                            <td>${index}</td>
+                            <td>${data.customer_name || 'N/A'}</td>
+                            <td>${data.contact || 'N/A'}</td>
+                            <td>${data.service || 'N/A'}</td>
+                            <td>${createdAt}</td>
+                            <td>${statusBadge}</td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-sm text-white" style="background: linear-gradient(135deg, #00C2FF 0%, #0099cc 100%); margin-right: 5px;" onclick="viewEstimate('${docId}')">보기</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteEstimate('${docId}')">삭제</button>
+                            </td>
+                        </tr>
+                    `;
+                    index++;
+                });
+
+                tbody.innerHTML = html;
+            } catch (error) {
+                console.error('견적문의 목록 로드 오류:', error);
+                document.getElementById('estimate-tbody').innerHTML = '<tr><td colspan="7" class="text-center text-danger">데이터를 불러오는 중 오류가 발생했습니다.</td></tr>';
+            }
+        }
+
+        // 문의하기 목록 로드
+        async function loadContactList() {
+            if (!db) {
+                document.getElementById('contact-tbody').innerHTML = '<tr><td colspan="8" class="text-center text-danger">Firebase가 초기화되지 않았습니다.</td></tr>';
+                return;
+            }
+
+            try {
+                const tbody = document.getElementById('contact-tbody');
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center">로딩 중...</td></tr>';
+
+                const querySnapshot = await db.collection('contacts')
+                    .orderBy('createdAt', 'desc')
+                    .get();
+
+                if (querySnapshot.empty) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="text-center">등록된 문의가 없습니다.</td></tr>';
+                    return;
+                }
+
+                let html = '';
+                let index = 1;
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const docId = doc.id;
+
+                    let createdAt = 'N/A';
+                    if (data.createdAt) {
+                        const date = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
+                        createdAt = date.toLocaleString('ko-KR');
+                    }
+
+                    const status = data.status || 'pending';
+                    const statusBadge = status === 'completed'
+                        ? `<button class="status-badge bg-success text-white" onclick="updateContactStatus('${docId}', 'pending')">완료</button>`
+                        : `<button class="status-badge bg-warning text-dark" onclick="updateContactStatus('${docId}', 'completed')">대기</button>`;
+
+                    html += `
+                        <tr>
+                            <td>${index}</td>
+                            <td>${data.name || 'N/A'}</td>
+                            <td>${data.email || 'N/A'}</td>
+                            <td>${data.phone || 'N/A'}</td>
+                            <td>${data.service_area || 'N/A'}</td>
+                            <td>${createdAt}</td>
+                            <td>${statusBadge}</td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-sm text-white" style="background: linear-gradient(135deg, #00C2FF 0%, #0099cc 100%); margin-right: 5px;" onclick="viewContact('${docId}')">보기</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteContact('${docId}')">삭제</button>
+                            </td>
+                        </tr>
+                    `;
+                    index++;
+                });
+
+                tbody.innerHTML = html;
+            } catch (error) {
+                console.error('문의하기 목록 로드 오류:', error);
+                document.getElementById('contact-tbody').innerHTML = '<tr><td colspan="8" class="text-center text-danger">데이터를 불러오는 중 오류가 발생했습니다.</td></tr>';
+            }
+        }
+
+        // 온라인 견적문의 상세 보기
+        window.viewEstimate = async function(docId) {
+            if (!db) {
+                alert('Firebase가 초기화되지 않았습니다.');
+                return;
+            }
+
+            try {
+                const docRef = db.collection('estimates').doc(docId);
+                const docSnap = await docRef.get();
+
+                if (!docSnap.exists) {
+                    alert('견적문의를 찾을 수 없습니다.');
+                    return;
+                }
+
+                const data = docSnap.data();
+                let createdAt = 'N/A';
+                if (data.createdAt) {
+                    const date = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
+                    createdAt = date.toLocaleString('ko-KR');
+                }
+
+                const html = `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">고객명</div>
+                                <div class="detail-value">${data.customer_name || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">연락처</div>
+                                <div class="detail-value">${data.contact || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">주소</div>
+                                <div class="detail-value">${data.address || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">평수/면적</div>
+                                <div class="detail-value">${data.area || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">서비스 유형</div>
+                                <div class="detail-value">${data.service || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">서비스 요청일</div>
+                                <div class="detail-value">${data.service_date || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">제출일</div>
+                                <div class="detail-value">${createdAt}</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="detail-item">
+                                <div class="detail-label">문의사항</div>
+                                <div class="detail-value" style="white-space: pre-wrap; background: #f8f9fa; padding: 15px; border-radius: 5px;">${data.inquiry || 'N/A'}</div>
+                            </div>
+                        </div>
+                        ${data.photo1_name || data.photo2_name || data.photo3_name ? `
+                        <div class="col-12">
+                            <div class="detail-item">
+                                <div class="detail-label">첨부파일</div>
+                                <div class="detail-value">
+                                    ${data.photo1_name ? `<div>${data.photo1_name}</div>` : ''}
+                                    ${data.photo2_name ? `<div>${data.photo2_name}</div>` : ''}
+                                    ${data.photo3_name ? `<div>${data.photo3_name}</div>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+
+                document.getElementById('estimate-detail-content').innerHTML = html;
+                document.getElementById('estimate-detail-card').style.display = 'block';
+                document.getElementById('estimate-detail-card').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error('견적문의 상세 보기 오류:', error);
+                alert('견적문의를 불러오는 중 오류가 발생했습니다.');
+            }
+        };
+
+        // 문의하기 상세 보기
+        window.viewContact = async function(docId) {
+            if (!db) {
+                alert('Firebase가 초기화되지 않았습니다.');
+                return;
+            }
+
+            try {
+                const docRef = db.collection('contacts').doc(docId);
+                const docSnap = await docRef.get();
+
+                if (!docSnap.exists) {
+                    alert('문의를 찾을 수 없습니다.');
+                    return;
+                }
+
+                const data = docSnap.data();
+                let createdAt = 'N/A';
+                if (data.createdAt) {
+                    const date = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
+                    createdAt = date.toLocaleString('ko-KR');
+                }
+
+                const html = `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">이름</div>
+                                <div class="detail-value">${data.name || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">이메일</div>
+                                <div class="detail-value">${data.email || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">전화번호</div>
+                                <div class="detail-value">${data.phone || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">청소 영역</div>
+                                <div class="detail-value">${data.service_area || 'N/A'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <div class="detail-label">제출일</div>
+                                <div class="detail-value">${createdAt}</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="detail-item">
+                                <div class="detail-label">문의 내용</div>
+                                <div class="detail-value" style="white-space: pre-wrap; background: #f8f9fa; padding: 15px; border-radius: 5px;">${data.message || 'N/A'}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('contact-detail-content').innerHTML = html;
+                document.getElementById('contact-detail-card').style.display = 'block';
+                document.getElementById('contact-detail-card').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error('문의하기 상세 보기 오류:', error);
+                alert('문의를 불러오는 중 오류가 발생했습니다.');
+            }
+        };
+
+        // 온라인 견적문의 상태 변경
+        window.updateEstimateStatus = async function(docId, newStatus) {
+            if (!db) {
+                alert('Firebase가 초기화되지 않았습니다.');
+                return;
+            }
+
+            try {
+                await db.collection('estimates').doc(docId).update({
+                    status: newStatus,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                loadEstimateList();
+            } catch (error) {
+                console.error('상태 변경 오류:', error);
+                alert('상태 변경 중 오류가 발생했습니다.');
+            }
+        };
+
+        // 문의하기 상태 변경
+        window.updateContactStatus = async function(docId, newStatus) {
+            if (!db) {
+                alert('Firebase가 초기화되지 않았습니다.');
+                return;
+            }
+
+            try {
+                await db.collection('contacts').doc(docId).update({
+                    status: newStatus,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                loadContactList();
+            } catch (error) {
+                console.error('상태 변경 오류:', error);
+                alert('상태 변경 중 오류가 발생했습니다.');
+            }
+        };
+
+        // 온라인 견적문의 삭제
+        window.deleteEstimate = async function(docId) {
+            if (!confirm('정말로 이 견적문의를 삭제하시겠습니까?')) return;
+
+            if (!db) {
+                alert('Firebase가 초기화되지 않았습니다.');
+                return;
+            }
+
+            try {
+                await db.collection('estimates').doc(docId).delete();
+                alert('견적문의가 삭제되었습니다.');
+                loadEstimateList();
+                document.getElementById('estimate-detail-card').style.display = 'none';
+            } catch (error) {
+                console.error('견적문의 삭제 오류:', error);
+                alert('견적문의 삭제 중 오류가 발생했습니다.');
+            }
+        };
+
+        // 문의하기 삭제
+        window.deleteContact = async function(docId) {
+            if (!confirm('정말로 이 문의를 삭제하시겠습니까?')) return;
+
+            if (!db) {
+                alert('Firebase가 초기화되지 않았습니다.');
+                return;
+            }
+
+            try {
+                await db.collection('contacts').doc(docId).delete();
+                alert('문의가 삭제되었습니다.');
+                loadContactList();
+                document.getElementById('contact-detail-card').style.display = 'none';
+            } catch (error) {
+                console.error('문의하기 삭제 오류:', error);
+                alert('문의 삭제 중 오류가 발생했습니다.');
+            }
+        };
+
+        // 온라인 견적문의 상세 정보 닫기
+        function closeEstimateDetail() {
+            document.getElementById('estimate-detail-card').style.display = 'none';
+        }
+
+        // 문의하기 상세 정보 닫기
+        function closeContactDetail() {
+            document.getElementById('contact-detail-card').style.display = 'none';
+        }
+
+        // 로그아웃 함수
+        window.logout = function() {
+            if (!confirm('로그아웃하시겠습니까?')) return;
+            
+            sessionStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('adminLoginTime');
+            window.location.href = 'admin-login.html';
+        };
+
+        // 공지사항 목록 로드
+        async function loadNoticeList() {
+            if (!db) {
+                document.getElementById('notice-tbody').innerHTML = '<tr><td colspan="7" class="text-center text-danger">Firebase가 초기화되지 않았습니다.</td></tr>';
+                return;
+            }
+
+            try {
+                const tbody = document.getElementById('notice-tbody');
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center">로딩 중...</td></tr>';
+
+                const querySnapshot = await db.collection('notices')
+                    .orderBy('createdAt', 'desc')
+                    .get();
+
+                if (querySnapshot.empty) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center">등록된 공지사항이 없습니다.</td></tr>';
+                    return;
+                }
+
+                let html = '';
+                let index = 1;
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const docId = doc.id;
+
+                    let createdAt = 'N/A';
+                    if (data.createdAt) {
+                        const date = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
+                        createdAt = date.toLocaleDateString('ko-KR', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit'
+                        });
+                    }
+
+                    const titleDisplay = data.title || 'N/A';
+                    const statusBadge = '<span class="badge bg-success">공개</span>';
+
+                    html += `
+                        <tr>
+                            <td>${index}</td>
+                            <td>${titleDisplay}</td>
+                            <td>${data.author || '관리자'}</td>
+                            <td>${createdAt}</td>
+                            <td>${data.views || 0}</td>
+                            <td>${statusBadge}</td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-sm text-white" style="background: linear-gradient(135deg, #00C2FF 0%, #0099cc 100%); margin-right: 5px;" onclick="editNotice('${docId}')">수정</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteNotice('${docId}', '${(data.title || '').replace(/'/g, "&#39;")}')">삭제</button>
+                            </td>
+                        </tr>
+                    `;
+                    index++;
+                });
+
+                tbody.innerHTML = html;
+            } catch (error) {
+                console.error('공지사항 목록 로드 오류:', error);
+                document.getElementById('notice-tbody').innerHTML = '<tr><td colspan="7" class="text-center text-danger">데이터를 불러오는 중 오류가 발생했습니다.</td></tr>';
+            }
+        }
+
+        // 공지사항 작성 폼 표시
+        window.showNoticeForm = function() {
+            document.getElementById('notice-edit-id').value = '';
+            document.getElementById('notice-form-title').textContent = '공지사항 작성';
+            document.getElementById('notice-submit-btn').textContent = '작성하기';
+            resetNoticeForm();
+            document.getElementById('notice').style.display = 'none';
+            document.getElementById('notice-add-section').style.display = 'block';
+            document.getElementById('notice-add-section').classList.add('active');
+            document.getElementById('notice').classList.remove('active');
+        };
+
+        // 공지사항 수정 폼 표시
+        window.editNotice = async function(docId) {
+            if (!db) {
+                alert('Firebase가 초기화되지 않았습니다.');
+                return;
+            }
+
+            try {
+                const docRef = db.collection('notices').doc(docId);
+                const docSnap = await docRef.get();
+
+                if (!docSnap.exists) {
+                    alert('공지사항을 찾을 수 없습니다.');
+                    return;
+                }
+
+                const data = docSnap.data();
+                
+                // 폼에 데이터 채우기
+                document.getElementById('notice-edit-id').value = docId;
+                document.getElementById('notice-title').value = data.title || '';
+                document.getElementById('notice-content').value = data.content || '';
+                document.getElementById('notice-form-title').textContent = '공지사항 수정';
+                document.getElementById('notice-submit-btn').textContent = '수정하기';
+
+                // 폼 섹션 표시
+                document.getElementById('notice').style.display = 'none';
+                document.getElementById('notice-add-section').style.display = 'block';
+                document.getElementById('notice-add-section').classList.add('active');
+                document.getElementById('notice').classList.remove('active');
+            } catch (error) {
+                console.error('공지사항 수정 폼 로드 오류:', error);
+                alert('공지사항을 불러오는 중 오류가 발생했습니다.');
+            }
+        };
+
+        // 공지사항 목록 표시
+        window.showNoticeList = function() {
+            document.getElementById('notice-add-section').style.display = 'none';
+            document.getElementById('notice-add-section').classList.remove('active');
+            document.getElementById('notice').style.display = 'block';
+            document.getElementById('notice').classList.add('active');
+            loadNoticeList();
+        };
+
+        // 공지사항 폼 초기화
+        window.resetNoticeForm = function() {
+            document.getElementById('notice-form').reset();
+            document.getElementById('notice-edit-id').value = '';
+            document.getElementById('notice-form-title').textContent = '공지사항 작성';
+            document.getElementById('notice-submit-btn').textContent = '작성하기';
+        };
+
+        // 공지사항 등록
+        const noticeForm = document.getElementById('notice-form');
+        if (noticeForm) {
+            noticeForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                if (!db) {
+                    alert('Firebase가 초기화되지 않았습니다.');
+                    return;
+                }
+
+                const editId = document.getElementById('notice-edit-id').value;
+                const title = document.getElementById('notice-title').value.trim();
+                const content = document.getElementById('notice-content').value.trim();
+
+                if (!title) {
+                    alert('제목을 입력해주세요.');
+                    return;
+                }
+
+                if (!content) {
+                    alert('내용을 입력해주세요.');
+                    return;
+                }
+
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = editId ? '수정 중...' : '작성 중...';
+
+                try {
+                    if (editId) {
+                        // 수정 모드
+                        await db.collection('notices').doc(editId).update({
+                            title: title,
+                            content: content,
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        alert('공지사항이 수정되었습니다.');
+                    } else {
+                        // 작성 모드
+                        await db.collection('notices').add({
+                            title: title,
+                            content: content,
+                            author: '관리자',
+                            published: true,
+                            views: 0,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        alert('공지사항이 작성되었습니다.');
+                    }
+
+                    resetNoticeForm();
+                    showNoticeList();
+                } catch (error) {
+                    console.error('공지사항 저장 오류:', error);
+                    alert((editId ? '공지사항 수정' : '공지사항 작성') + ' 중 오류가 발생했습니다: ' + error.message);
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            });
+        }
+
+        // 공지사항 삭제
+        window.deleteNotice = async function(docId, title) {
+            if (!confirm(`정말로 "${title || '이 공지사항'}"을 삭제하시겠습니까?`)) {
+                return;
+            }
+
+            if (!db) {
+                alert('Firebase가 초기화되지 않았습니다.');
+                return;
+            }
+
+            try {
+                await db.collection('notices').doc(docId).delete();
+                alert('공지사항이 삭제되었습니다.');
+                loadNoticeList();
+            } catch (error) {
+                console.error('공지사항 삭제 오류:', error);
+                alert('공지사항 삭제 중 오류가 발생했습니다: ' + error.message);
+            }
+        };
+
+        // 페이지 로드 시 데이터 로드
+        document.addEventListener('DOMContentLoaded', function() {
+            if (db) {
+                loadEstimateList();
+            }
+        });
+    </script>
+</body>
+</html>
+

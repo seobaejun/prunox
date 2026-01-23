@@ -13,6 +13,21 @@
     <link rel="stylesheet" href="assets/css/swiper.min.css">
     <link rel="stylesheet" href="assets/css/style.css?v=15">
     <link rel="stylesheet" href="assets/css/media_query.css">
+    <style>
+        /* 앵커 링크 스크롤 오프셋 */
+        section[id] {
+            scroll-margin-top: 100px;
+        }
+        #online {
+            scroll-margin-top: 120px;
+        }
+        #notice {
+            scroll-margin-top: 120px;
+        }
+        #contact {
+            scroll-margin-top: 120px;
+        }
+    </style>
 </head>
 
 <body>
@@ -120,7 +135,7 @@
                             <a href="tel:010-3271-9995">010-3271-9995</a>
                         </div>
                     </div>
-                    <a href="online.html" class="btn-quote get-quote-btn">견적문의
+                    <a href="customer.html#online" class="btn-quote get-quote-btn">견적문의
                         <img src="assets/images/svg/cross-arrow.svg" alt="cross-arrow">
                     </a>
                 </div>
@@ -231,46 +246,9 @@
                 <h3 style="font-size: 20px; color: #666;">푸르녹스의 주요 소식입니다.</h3>
             </div>
             <table style="width: 100%; max-width: 1200px; margin: 0 auto; border-collapse: collapse;">
-                <tbody>
-                    <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;">
-                        <td style="padding: 20px;">
-                            <h3 style="font-size: 18px; font-weight: 500;">
-                                <a href="customer.html" style="color: #000; text-decoration: none; transition: color 0.3s;">무한돌봄네트워크팀 사례관리대상자 가정 방역 및 청소...</a>
-                            </h3>
-                        </td>
-                        <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">2025-11-12 +</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;">
-                        <td style="padding: 20px;">
-                            <h3 style="font-size: 18px; font-weight: 500;">
-                                <a href="customer.html" style="color: #000; text-decoration: none; transition: color 0.3s;">구리시 갈매동, 주거 청소로 이웃의 삶에 따뜻함을 ...</a>
-                            </h3>
-                        </td>
-                        <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">2025-11-12 +</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;">
-                        <td style="padding: 20px;">
-                            <h3 style="font-size: 18px; font-weight: 500;">
-                                <a href="customer.html" style="color: #000; text-decoration: none; transition: color 0.3s;">푸르녹스·남양주시소상공인연합회, 한부모가정 청소 봉사</a>
-                            </h3>
-                        </td>
-                        <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">2025-05-27 +</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;">
-                        <td style="padding: 20px;">
-                            <h3 style="font-size: 18px; font-weight: 500;">
-                                <a href="customer.html" style="color: #000; text-decoration: none; transition: color 0.3s;">남양주시 소상공인연합회·푸르녹스, 장애인 부부 청소 ...</a>
-                            </h3>
-                        </td>
-                        <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">2025-05-27 +</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;">
-                        <td style="padding: 20px;">
-                            <h3 style="font-size: 18px; font-weight: 500;">
-                                <a href="customer.html" style="color: #000; text-decoration: none; transition: color 0.3s;">갈매동 복지협의체, 푸르녹스와 복지지원 협약 체결</a>
-                            </h3>
-                        </td>
-                        <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">2025-05-27 +</td>
+                <tbody id="notice-list-tbody">
+                    <tr>
+                        <td colspan="2" style="padding: 40px; text-align: center; color: #999;">로딩 중...</td>
                     </tr>
                 </tbody>
             </table>
@@ -388,6 +366,10 @@
     </footer>
     <!-- ====================== Bottom To Top Button ======================= -->
     <button class="bottom-top-button">↑</button>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="assets/javascript/firebase-config.js"></script>
     <script src="assets/javascript/jquery.js"></script>
     <script src="assets/javascript/bootstrap.min.js"></script>
     <script src="assets/javascript/swiper-bundle.min.js"></script>
@@ -397,19 +379,368 @@
     <script src="assets/javascript/animation.gsap.min.js"></script>
     <script src="assets/javascript/script.js"></script>
     <script>
-        // 파일 선택 시 파일명 표시
-        document.getElementById('file1').addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : '선택된 파일 없음';
-            document.getElementById('file1-name').textContent = fileName;
+        // Firebase 초기화
+        let db;
+        
+        // Firebase 초기화 함수
+        function initFirebase() {
+            if (typeof firebase !== 'undefined' && typeof firebaseConfig !== 'undefined') {
+                try {
+                    firebase.initializeApp(firebaseConfig);
+                    db = firebase.firestore();
+                    console.log('Firebase 초기화 완료');
+                    return true;
+                } catch (error) {
+                    console.error('Firebase 초기화 오류:', error);
+                    return false;
+                }
+            } else {
+                console.error('Firebase 또는 firebaseConfig가 로드되지 않았습니다.');
+                return false;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Firebase 초기화
+            initFirebase();
+
+            // 파일 선택 시 파일명 표시
+            const file1 = document.getElementById('file1');
+            const file2 = document.getElementById('file2');
+            const file3 = document.getElementById('file3');
+            
+            if (file1) {
+                file1.addEventListener('change', function(e) {
+                    const fileName = e.target.files[0] ? e.target.files[0].name : '선택된 파일 없음';
+                    const nameSpan = document.getElementById('file1-name');
+                    if (nameSpan) nameSpan.textContent = fileName;
+                });
+            }
+            
+            if (file2) {
+                file2.addEventListener('change', function(e) {
+                    const fileName = e.target.files[0] ? e.target.files[0].name : '선택된 파일 없음';
+                    const nameSpan = document.getElementById('file2-name');
+                    if (nameSpan) nameSpan.textContent = fileName;
+                });
+            }
+            
+            if (file3) {
+                file3.addEventListener('change', function(e) {
+                    const fileName = e.target.files[0] ? e.target.files[0].name : '선택된 파일 없음';
+                    const nameSpan = document.getElementById('file3-name');
+                    if (nameSpan) nameSpan.textContent = fileName;
+                });
+            }
+
+            // 온라인 견적문의 폼 제출
+            const quoteForm = document.querySelector('.quote-form');
+            if (quoteForm) {
+                quoteForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    console.log('견적문의 폼 제출 시도');
+                    
+                    if (typeof firebase === 'undefined' || !db) {
+                        console.error('Firebase 초기화 실패, 재시도...');
+                        if (!initFirebase()) {
+                            alert('Firebase가 초기화되지 않았습니다. 잠시 후 다시 시도해주세요.');
+                            return;
+                        }
+                    }
+
+                    const formData = new FormData(this);
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '제출 중...';
+
+                    try {
+                        const estimateData = {
+                            customer_name: formData.get('customer_name'),
+                            contact: formData.get('contact'),
+                            address: formData.get('address') || '',
+                            area: formData.get('area') || '',
+                            service: formData.get('service') || '',
+                            service_date: formData.get('service_date') || '',
+                            inquiry: formData.get('inquiry') || '',
+                            photo1_name: document.getElementById('file1').files[0] ? document.getElementById('file1').files[0].name : '',
+                            photo2_name: document.getElementById('file2').files[0] ? document.getElementById('file2').files[0].name : '',
+                            photo3_name: document.getElementById('file3').files[0] ? document.getElementById('file3').files[0].name : '',
+                            status: 'pending',
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        };
+
+                        console.log('견적문의 데이터 저장 시도:', estimateData);
+                        await db.collection('estimates').add(estimateData);
+                        
+                        alert('견적문의가 성공적으로 제출되었습니다. 빠른 시일 내에 연락드리겠습니다.');
+                        this.reset();
+                        document.getElementById('file1-name').textContent = '선택된 파일 없음';
+                        document.getElementById('file2-name').textContent = '선택된 파일 없음';
+                        document.getElementById('file3-name').textContent = '선택된 파일 없음';
+                    } catch (error) {
+                        console.error('견적문의 제출 오류:', error);
+                        alert('견적문의 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
+                });
+            }
+
+            // 문의하기 폼 드롭다운 선택 기능
+            document.querySelectorAll('.formDropDown-ul-list li a').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const selectedText = this.textContent.trim();
+                    const dropdown = document.querySelector('.formDropDown');
+                    if (dropdown) {
+                        dropdown.textContent = selectedText;
+                    }
+                });
+            });
+
+            // 문의하기 폼 제출
+            const contactBtn = document.querySelector('.contac-form-main .btn-quote');
+            if (contactBtn) {
+                contactBtn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    
+                    console.log('문의하기 폼 제출 시도');
+                    
+                    if (typeof firebase === 'undefined' || !db) {
+                        console.error('Firebase 초기화 실패, 재시도...');
+                        if (!initFirebase()) {
+                            alert('Firebase가 초기화되지 않았습니다. 잠시 후 다시 시도해주세요.');
+                            return;
+                        }
+                    }
+
+                    const form = document.querySelector('.contac-form-main');
+                    const nameInput = form.querySelector('input[name="full name"]');
+                    const emailInput = form.querySelector('input[name="email"]');
+                    const phoneInput = form.querySelector('input[name="phone"]');
+                    const messageInput = form.querySelector('input[name="message"]');
+                    const serviceSelect = form.querySelector('.formDropDown');
+
+                    // 필수 필드 검증
+                    if (!nameInput || !nameInput.value.trim() || !emailInput || !emailInput.value.trim() || !phoneInput || !phoneInput.value.trim()) {
+                        alert('필수 항목을 모두 입력해주세요.');
+                        return;
+                    }
+
+                    // 청소 영역 선택 검증
+                    if (!serviceSelect || serviceSelect.textContent.trim() === '목록에서 선택') {
+                        alert('청소 영역을 선택해주세요.');
+                        return;
+                    }
+
+                    const submitBtn = this;
+                    const originalText = submitBtn.innerHTML;
+                    
+                    submitBtn.style.pointerEvents = 'none';
+                    submitBtn.innerHTML = '제출 중...';
+
+                    try {
+                        const contactData = {
+                            name: nameInput.value.trim(),
+                            email: emailInput.value.trim(),
+                            phone: phoneInput.value.trim(),
+                            service_area: serviceSelect ? serviceSelect.textContent.trim() : '',
+                            message: messageInput ? messageInput.value.trim() : '',
+                            status: 'pending',
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        };
+
+                        console.log('문의하기 데이터 저장 시도:', contactData);
+                        await db.collection('contacts').add(contactData);
+                        
+                        alert('문의가 성공적으로 제출되었습니다. 빠른 시일 내에 연락드리겠습니다.');
+                        nameInput.value = '';
+                        emailInput.value = '';
+                        phoneInput.value = '';
+                        if (messageInput) messageInput.value = '';
+                        if (serviceSelect) serviceSelect.textContent = '목록에서 선택';
+                    } catch (error) {
+                        console.error('문의 제출 오류:', error);
+                        alert('문의 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    } finally {
+                        submitBtn.style.pointerEvents = 'auto';
+                        submitBtn.innerHTML = originalText;
+                    }
+                });
+            } else {
+                console.error('문의하기 버튼을 찾을 수 없습니다.');
+            }
+
+            // 공지사항 목록 로드
+            loadNoticeList();
+
+            // 앵커 링크 스크롤 처리
+            handleAnchorScroll();
         });
-        document.getElementById('file2').addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : '선택된 파일 없음';
-            document.getElementById('file2-name').textContent = fileName;
-        });
-        document.getElementById('file3').addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : '선택된 파일 없음';
-            document.getElementById('file3-name').textContent = fileName;
-        });
+
+        // 앵커 링크 스크롤 처리 함수
+        function handleAnchorScroll() {
+            // URL에 해시가 있는 경우 처리
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const hash = window.location.hash.substring(1);
+                    const targetElement = document.getElementById(hash);
+                    if (targetElement) {
+                        const headerOffset = 120;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 100);
+            }
+
+            // 앵커 링크 클릭 이벤트 처리
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href !== '#' && href.startsWith('#')) {
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            e.preventDefault();
+                            const headerOffset = 120;
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+
+                            // URL 업데이트 (히스토리 추가)
+                            history.pushState(null, null, href);
+                        }
+                    }
+                });
+            });
+        }
+
+        // 공지사항 목록 로드 함수
+        async function loadNoticeList() {
+            const tbody = document.getElementById('notice-list-tbody');
+            if (!tbody) return;
+
+            if (!db) {
+                // Firebase 초기화 재시도
+                if (typeof firebase !== 'undefined' && typeof firebaseConfig !== 'undefined') {
+                    try {
+                        firebase.initializeApp(firebaseConfig);
+                        db = firebase.firestore();
+                    } catch (error) {
+                        console.error('Firebase 재초기화 실패:', error);
+                        tbody.innerHTML = '<tr><td colspan="2" style="padding: 40px; text-align: center; color: #999;">공지사항을 불러올 수 없습니다.</td></tr>';
+                        return;
+                    }
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="2" style="padding: 40px; text-align: center; color: #999;">공지사항을 불러올 수 없습니다.</td></tr>';
+                    return;
+                }
+            }
+
+            try {
+                tbody.innerHTML = '<tr><td colspan="2" style="padding: 40px; text-align: center; color: #999;">로딩 중...</td></tr>';
+
+                // 모든 공지사항을 가져온 후 클라이언트에서 필터링 (인덱스 문제 방지)
+                const querySnapshot = await db.collection('notices')
+                    .orderBy('createdAt', 'desc')
+                    .get();
+
+                if (querySnapshot.empty) {
+                    tbody.innerHTML = '<tr><td colspan="2" style="padding: 40px; text-align: center; color: #999;">등록된 공지사항이 없습니다.</td></tr>';
+                    return;
+                }
+
+                let html = '';
+                let hasPublishedNotice = false;
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const docId = doc.id;
+                    
+                    // published가 true인 경우만 표시 (없으면 true로 간주)
+                    const published = data.published !== false;
+                    if (!published) return;
+                    
+                    hasPublishedNotice = true;
+                    
+                    let createdAt = '';
+                    if (data.createdAt) {
+                        const date = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
+                        createdAt = date.toLocaleDateString('ko-KR', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit'
+                        });
+                    }
+
+                    const title = data.title || '제목 없음';
+                    const content = data.content || '';
+                    // XSS 방지를 위해 HTML 이스케이프
+                    const safeTitle = title.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    const safeContent = content.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+
+                    html += `
+                        <tr class="notice-item" style="border-bottom: 1px solid #eee; transition: background 0.3s; cursor: pointer;" onclick="toggleNotice('${docId}')">
+                            <td style="padding: 20px;">
+                                <h3 style="font-size: 18px; font-weight: 500; margin: 0; display: flex; align-items: center; gap: 10px;">
+                                    <span style="color: #000;">${safeTitle}</span>
+                                    <span class="notice-toggle-icon" id="icon-${docId}" style="color: #00C2FF; font-size: 14px;">▼</span>
+                                </h3>
+                            </td>
+                            <td class="date" style="text-align: right; color: #999; font-size: 14px; white-space: nowrap; padding: 20px;">${createdAt} +</td>
+                        </tr>
+                        <tr id="content-${docId}" class="notice-content-row" style="display: none; border-bottom: 1px solid #eee;">
+                            <td colspan="2" style="padding: 20px 20px 20px 40px; background-color: #f8f9fa;">
+                                <div style="color: #333; line-height: 1.8; white-space: pre-wrap;">${safeContent}</div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                if (!hasPublishedNotice) {
+                    tbody.innerHTML = '<tr><td colspan="2" style="padding: 40px; text-align: center; color: #999;">등록된 공지사항이 없습니다.</td></tr>';
+                } else {
+                    tbody.innerHTML = html;
+                }
+            } catch (error) {
+                console.error('공지사항 목록 로드 오류:', error);
+                console.error('오류 상세:', error.message);
+                const tbody = document.getElementById('notice-list-tbody');
+                if (tbody) {
+                    tbody.innerHTML = '<tr><td colspan="2" style="padding: 40px; text-align: center; color: #999;">공지사항을 불러오는 중 오류가 발생했습니다.<br><small style="font-size: 12px;">' + (error.message || '알 수 없는 오류') + '</small></td></tr>';
+                }
+            }
+        }
+
+        // 공지사항 토글 함수
+        window.toggleNotice = function(docId) {
+            const contentRow = document.getElementById('content-' + docId);
+            const icon = document.getElementById('icon-' + docId);
+            
+            if (!contentRow || !icon) return;
+            
+            if (contentRow.style.display === 'none') {
+                contentRow.style.display = '';
+                icon.textContent = '▲';
+            } else {
+                contentRow.style.display = 'none';
+                icon.textContent = '▼';
+            }
+        };
     </script>
 </body>
 

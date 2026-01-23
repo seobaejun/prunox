@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 로그인 - 푸르녹스</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #00C2FF 0%, #0099cc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 28px;
+        }
+
+        .login-container .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #00C2FF;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #00C2FF 0%, #0099cc 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 194, 255, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>푸르녹스</h1>
+        <p class="subtitle">관리자 로그인</p>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="비밀번호를 입력하세요">
+            </div>
+            <button type="submit" class="btn" id="loginBtn">로그인</button>
+            <div class="error-message" id="errorMessage"></div>
+            <div class="loading" id="loading">
+                <p>로그인 중...</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // 관리자 비밀번호
+        const ADMIN_PASSWORD = '5151';
+
+        // 로그인 폼 처리
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loading = document.getElementById('loading');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // 에러 메시지 숨기기
+            errorMessage.classList.remove('show');
+            loading.classList.add('show');
+            loginBtn.disabled = true;
+            
+            // 간단한 지연 (로딩 효과)
+            setTimeout(() => {
+                // 비밀번호 확인
+                if (password === ADMIN_PASSWORD) {
+                    // 로그인 성공 - 세션 스토리지에 저장
+                    sessionStorage.setItem('adminLoggedIn', 'true');
+                    sessionStorage.setItem('adminLoginTime', Date.now().toString());
+                    
+                    console.log('✅ 로그인 성공');
+                    window.location.href = 'admin.html';
+                } else {
+                    // 로그인 실패
+                    loading.classList.remove('show');
+                    loginBtn.disabled = false;
+                    errorMessage.classList.add('show');
+                    errorMessage.textContent = '비밀번호가 올바르지 않습니다.';
+                }
+            }, 500);
+        });
+
+        // 이미 로그인된 경우 대시보드로 리다이렉트
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            const loginTime = parseInt(sessionStorage.getItem('adminLoginTime') || '0');
+            const now = Date.now();
+            // 24시간 세션 유지
+            if (now - loginTime < 24 * 60 * 60 * 1000) {
+                window.location.href = 'admin.html';
+            } else {
+                // 세션 만료
+                sessionStorage.removeItem('adminLoggedIn');
+                sessionStorage.removeItem('adminLoginTime');
+            }
+        }
+    </script>
+</body>
+</html>
+
