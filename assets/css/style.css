@@ -2000,6 +2000,18 @@ button.bottom-top-button {
     background-size: cover;
     padding: 350px 0 150px !important;
     min-height: 700px !important;
+    /* 이미지 로딩 최적화 */
+    background-attachment: scroll;
+    will-change: background-image;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    /* GPU 가속 및 렌더링 최적화 */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* 이미지 로딩 성능 향상 */
+    content-visibility: auto;
+    contain-intrinsic-size: 1920px 700px;
 }
 .img-header-text {
     color: #FFF;
