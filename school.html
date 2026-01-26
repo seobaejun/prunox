@@ -13,11 +13,108 @@
     <link rel="stylesheet" href="assets/css/swap.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/swiper.min.css">
-    <link rel="stylesheet" href="assets/css/style.css?v=21">
+    <link rel="stylesheet" href="assets/css/style.css?v=25">
+    <link rel="stylesheet" href="assets/css/media_query.css?v=25">
     <link rel="stylesheet" href="assets/css/media_query.css">
+    <style>
+        /* 메인페이지만 평평한 헤더 */
+        body.index-page .header {
+            top: 0;
+            width: 100%;
+            border-radius: 0;
+            padding: 15px 40px;
+            background-color: #FFF !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        body.index-page .header-container {
+            max-width: 1920px;
+            margin: 0 auto;
+            gap: 100px;
+        }
+        body.index-page .nav {
+            justify-content: flex-end;
+        }
+        body.index-page .menu {
+            gap: 80px !important;
+        }
+        body.index-page .nav-actions {
+            display: none;
+        }
+        body.index-page .hero-slider-section {
+            margin-top: 0;
+        }
+        /* 세부 메뉴 사이드바 - 모든 카테고리 그룹화 표시 */
+        /* 메인 메뉴에서 점과 삼각형 제거 */
+        body.index-page .menu li a img,
+        body.index-page .menu li span.dots-circle {
+            display: none !important;
+        }
+        /* 기존 드롭다운 메뉴 완전히 숨기기 */
+        body.index-page .submenu {
+            display: none !important;
+        }
+        /* 세부 메뉴 사이드바 - 메가 메뉴 스타일 (전체 화면 너비) */
+        body.index-page .submenu-sidebar {
+            position: fixed;
+            left: 0;
+            width: 100vw;
+            background-color: #F5F5F5;
+            padding: 40px 0;
+            display: none;
+            z-index: 997;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            margin-top: 0;
+            min-height: 200px;
+        }
+        body.index-page .submenu-sidebar.active {
+            display: block;
+            opacity: 1;
+        }
+        body.index-page .submenu-sidebar .submenu-container {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 0 60px;
+            position: relative;
+            min-height: 200px;
+        }
+        body.index-page .submenu-group {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            min-width: 150px;
+        }
+        body.index-page .submenu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
+        }
+        body.index-page .submenu-list li {
+            padding: 0;
+        }
+        body.index-page .submenu-list li a {
+            color: #333;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 24px;
+            transition: color 0.3s;
+            display: block;
+            padding: 0;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        body.index-page .submenu-list li a:hover {
+            color: #00C2FF;
+        }
+    </style>
 </head>
 
-<body>
+<body class="index-page">
     <!-- ====================================== Preloader ===================================== -->
     <div class="page-loader">
         <div class="leap-frog">
@@ -37,28 +134,22 @@
                 <img src="assets/images/svg/menu2.svg" class="menu-icon" alt="menu2">
                 <img src="assets/images/svg/close-icon.svg" alt="close-icon" class="close-icon">
             </div>
-            <nav class="nav" id="main-menu">
+            <nav class="nav" id="main-menu" style="position: relative;">
                 <img class="dsad" src="assets/images/home/dsad.png" alt="dsad">
                 <div class="for-mobile-menu position-relative">
                     <a href="index.html" class="mobile-logo">
                         <img src="assets/images/프르녹스로고.png" alt="푸르녹스" style="max-height: 50px;">
                     </a>
                     <ul class="menu">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);">회사소개
-                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
-                                <span class="dots-circle"></span>
-                            </a>
+                        <li class="dropdown" data-menu-index="0">
+                            <a href="javascript:void(0);">회사소개</a>
                             <ul class="submenu">
                                 <li><a href="about.html">인사말</a></li>
                                 <li><a href="about.html#mapsss">오시는길</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0);">비즈니스 클리닝
-                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
-                                <span class="dots-circle"></span>
-                            </a>
+                        <li class="dropdown" data-menu-index="1">
+                            <a href="javascript:void(0);">비즈니스 클리닝</a>
                             <ul class="submenu">
                                 <li><a href="office.html">사무실청소</a></li>
                                 <li><a href="store.html">상업시설청소</a></li>
@@ -66,11 +157,8 @@
                                 <li><a href="carpet.html">카페트클리닝</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0);">기관·건물 클리닝
-                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
-                                <span class="dots-circle"></span>
-                            </a>
+                        <li class="dropdown" data-menu-index="2">
+                            <a href="javascript:void(0);">기관·건물 클리닝</a>
                             <ul class="submenu">
                                 <li><a href="government.html">관공서청소</a></li>
                                 <li><a href="school.html">학교청소</a></li>
@@ -78,32 +166,23 @@
                                 <li><a href="building02.html">외벽청소</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0);">특수청소
-                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
-                                <span class="dots-circle"></span>
-                            </a>
+                        <li class="dropdown" data-menu-index="3">
+                            <a href="javascript:void(0);">특수청소</a>
                             <ul class="submenu">
                                 <li><a href="trash.html">쓰레기집청소</a></li>
                                 <li><a href="death.html">유품정리</a></li>
                                 <li><a href="waste.html">폐기물 처리</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0);">전문청소
-                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
-                                <span class="dots-circle"></span>
-                            </a>
+                        <li class="dropdown" data-menu-index="4">
+                            <a href="javascript:void(0);">전문청소</a>
                             <ul class="submenu">
                                 <li><a href="aircon.html">에어컨 정밀청소</a></li>
                                 <li><a href="bug.html">방역소독</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0);">고객센터
-                                <img src="assets/images/svg/dropdown-arrow.svg" alt="dropdown-arrow">
-                                <span class="dots-circle"></span>
-                            </a>
+                        <li class="dropdown" data-menu-index="5">
+                            <a href="javascript:void(0);">고객센터</a>
                             <ul class="submenu">
                                 <li><a href="customer.html#online">온라인 견적문의</a></li>
                                 <li><a href="customer.html#notice">공지사항</a></li>
@@ -112,19 +191,52 @@
                         </li>
                     </ul>
                 </div>
-                <div class="nav-actions">
-                    <div class="call">
-                        <div class="headphone-main">
-                            <img src="assets/images/svg/headphone-icon.svg" alt="headphone-icon">
+                <!-- 세부 메뉴 표시 영역 - 메인 메뉴 위치에 맞춰 표시 -->
+                <div class="submenu-sidebar">
+                    <div class="submenu-container">
+                        <div class="submenu-group" data-menu-index="0">
+                            <ul class="submenu-list">
+                                <li><a href="about.html">인사말</a></li>
+                                <li><a href="about.html#mapsss">오시는길</a></li>
+                            </ul>
                         </div>
-                        <div class="need-help-main">
-                            <p>상담전화</p>
-                            <a href="tel:010-4338-4441">010-4338-4441</a>
+                        <div class="submenu-group" data-menu-index="1">
+                            <ul class="submenu-list">
+                                <li><a href="office.html">사무실청소</a></li>
+                                <li><a href="store.html">상업시설청소</a></li>
+                                <li><a href="floor.html">바닥왁스코팅</a></li>
+                                <li><a href="carpet.html">카페트클리닝</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-group" data-menu-index="2">
+                            <ul class="submenu-list">
+                                <li><a href="government.html">관공서청소</a></li>
+                                <li><a href="school.html">학교청소</a></li>
+                                <li><a href="building.html">준공청소</a></li>
+                                <li><a href="building02.html">외벽청소</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-group" data-menu-index="3">
+                            <ul class="submenu-list">
+                                <li><a href="trash.html">쓰레기집청소</a></li>
+                                <li><a href="death.html">유품정리</a></li>
+                                <li><a href="waste.html">폐기물 처리</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-group" data-menu-index="4">
+                            <ul class="submenu-list">
+                                <li><a href="aircon.html">에어컨 정밀청소</a></li>
+                                <li><a href="bug.html">방역소독</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-group" data-menu-index="5">
+                            <ul class="submenu-list">
+                                <li><a href="customer.html#online">온라인 견적문의</a></li>
+                                <li><a href="customer.html#notice">공지사항</a></li>
+                                <li><a href="customer.html#contact">문의하기</a></li>
+                            </ul>
                         </div>
                     </div>
-                    <a href="customer.html#online" class="btn-quote get-quote-btn">견적문의
-                        <img src="assets/images/svg/cross-arrow.svg" alt="cross-arrow">
-                    </a>
                 </div>
             </nav>
         </div>
@@ -463,6 +575,7 @@
     <script src="assets/javascript/scrollMagic.min.js"></script>
     <script src="assets/javascript/animation.gsap.min.js"></script>
     <script src="assets/javascript/script.js"></script>
+    <script src="assets/javascript/navigation-mega-menu.js"></script>
 </body>
 
 </html>

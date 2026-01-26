@@ -1,0 +1,48 @@
+                <!-- 세부 메뉴 표시 영역 - 메인 메뉴 위치에 맞춰 표시 -->
+                <div class="submenu-sidebar">
+                    <div class="submenu-container">
+                        <div class="submenu-group" data-menu-index="0">
+                            <ul class="submenu-list">
+                                <li><a href="about.html">인사말</a></li>
+                                <li><a href="about.html#mapsss">오시는길</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-group" data-menu-index="1">
+                            <ul class="submenu-list">
+                                <li><a href="office.html">사무실청소</a></li>
+                                <li><a href="store.html">상업시설청소</a></li>
+                                <li><a href="floor.html">바닥왁스코팅</a></li>
+                                <li><a href="carpet.html">카페트클리닝</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-group" data-menu-index="2">
+                            <ul class="submenu-list">
+                                <li><a href="government.html">관공서청소</a></li>
+                                <li><a href="school.html">학교청소</a></li>
+                                <li><a href="building.html">준공청소</a></li>
+                                <li><a href="building02.html">외벽청소</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-group" data-menu-index="3">
+                            <ul class="submenu-list">
+                                <li><a href="trash.html">쓰레기집청소</a></li>
+                                <li><a href="death.html">유품정리</a></li>
+                                <li><a href="waste.html">폐기물 처리</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-group" data-menu-index="4">
+                            <ul class="submenu-list">
+                                <li><a href="aircon.html">에어컨 정밀청소</a></li>
+                                <li><a href="bug.html">방역소독</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-group" data-menu-index="5">
+                            <ul class="submenu-list">
+                                <li><a href="customer.html#online">온라인 견적문의</a></li>
+                                <li><a href="customer.html#notice">공지사항</a></li>
+                                <li><a href="customer.html#contact">문의하기</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
