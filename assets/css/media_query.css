@@ -104,9 +104,30 @@
         gap: 40px;
     }
 }
+/* PC 버전 관리자 링크 스타일 */
+footer a[href="admin-login.html"] {
+    color: #333 !important;
+    font-size: 9px !important;
+    text-decoration: none !important;
+    display: block !important;
+    text-align: center !important;
+    margin-top: 5px !important;
+    opacity: 0.6 !important;
+    transition: opacity 0.3s !important;
+}
+
+footer a[href="admin-login.html"]:hover {
+    opacity: 0.6 !important;
+}
+
 @media (max-width: 1230px) {
     .menu li span {
         display: none;
+    }
+    
+    /* 모바일에서 관리자 링크 숨기기 */
+    footer a[href="admin-login.html"] {
+        display: none !important;
     }
     
     /* 모바일 네비게이션 바 스타일 */
