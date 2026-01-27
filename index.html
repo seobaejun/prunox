@@ -141,22 +141,81 @@
         </div>
     </div>
     <!-- ====================================== Header ===================================== -->
-    <div class="overlay" id="overlay"></div>
+    <!-- 햄버거 메뉴 버튼 -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- 모바일 오버레이 -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- 모바일 네비게이션 -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html" class="mobile-logo">
+            <img src="assets/images/프르녹스로고.png" alt="푸르녹스">
+        </a>
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0);">회사소개</a>
+                <ul class="submenu">
+                    <li><a href="about.html">인사말</a></li>
+                    <li><a href="about.html#mapsss">오시는길</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0);">비즈니스 클리닝</a>
+                <ul class="submenu">
+                    <li><a href="office.html">사무실청소</a></li>
+                    <li><a href="store.html">상업시설청소</a></li>
+                    <li><a href="floor.html">바닥왁스코팅</a></li>
+                    <li><a href="carpet.html">카페트클리닝</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0);">기관·건물 클리닝</a>
+                <ul class="submenu">
+                    <li><a href="government.html">관공서청소</a></li>
+                    <li><a href="school.html">학교청소</a></li>
+                    <li><a href="building.html">준공청소</a></li>
+                    <li><a href="building02.html">외벽청소</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0);">특수청소</a>
+                <ul class="submenu">
+                    <li><a href="trash.html">쓰레기집청소</a></li>
+                    <li><a href="death.html">유품정리</a></li>
+                    <li><a href="waste.html">폐기물 처리</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0);">전문청소</a>
+                <ul class="submenu">
+                    <li><a href="aircon.html">에어컨 정밀청소</a></li>
+                    <li><a href="bug.html">방역소독</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0);">고객센터</a>
+                <ul class="submenu">
+                    <li><a href="customer.html#online">온라인 견적문의</a></li>
+                    <li><a href="customer.html#notice">공지사항</a></li>
+                    <li><a href="customer.html#contact">문의하기</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
     <header class="header" id="top-navbar">
         <div class="header-container">
             <a href="index.html" class="logo">
                 <img src="assets/images/프르녹스로고.png" alt="푸르녹스" style="max-height: 60px;">
             </a>
-            <div class="hamburger" id="hamburger">
-                <img src="assets/images/svg/menu2.svg" class="menu-icon" alt="menu2">
-                <img src="assets/images/svg/close-icon.svg" alt="close-icon" class="close-icon">
-            </div>
-            <nav class="nav" id="main-menu" style="position: relative;">
+            <nav class="nav" id="main-menu">
                 <img class="dsad" src="assets/images/home/dsad.png" alt="dsad">
                 <div class="for-mobile-menu position-relative">
-                    <a href="index.html" class="mobile-logo">
-                        <img src="assets/images/프르녹스로고.png" alt="푸르녹스" style="max-height: 50px;">
-                    </a>
                     <ul class="menu">
                         <li class="dropdown" data-menu-index="0">
                             <a href="javascript:void(0);">회사소개</a>
@@ -973,7 +1032,7 @@
         </div>
     </footer>
     <!-- 오른쪽 사이드바 아이콘 -->
-    <div style="position: fixed; right: 30px; bottom: 160px; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+    <div class="quick-menu" style="position: fixed; right: 30px; bottom: 160px; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <!-- 첫 번째: 명함확인 -->
         <a href="#" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; height: 80px; background: #1E3A5F; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); padding: 10px;" title="명함확인">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 4px;">

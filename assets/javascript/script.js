@@ -19,128 +19,137 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /*------------------------ Header Complte resposive menu -------------------------*/
 // 모바일 메뉴 토글
-function initMobileMenu() {
-    const hamburger = document.getElementById("hamburger");
-    const nav = document.getElementById("main-menu");
-    const overlay = document.getElementById("overlay");
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const mobileNav = document.getElementById('mobileNav');
+const mobileOverlay = document.getElementById('mobileOverlay');
 
-    if (!hamburger || !nav) return;
-
-    // 초기 상태 설정: 메뉴 닫힘, 모든 드롭다운 닫힘
-    hamburger.classList.remove("active");
-    nav.classList.remove("open");
-    if (overlay) overlay.classList.remove("active");
-    
-    // 모든 드롭다운 닫기
-    document.querySelectorAll(".dropdown").forEach(drop => {
-        drop.classList.remove("open");
-        const sub = drop.querySelector(".submenu");
-        if (sub) {
-            sub.style.maxHeight = null;
-        }
-    });
-
-    // 모바일 메뉴 토글
-    hamburger.addEventListener('click', function() {
+if (mobileMenuToggle && mobileNav) {
+    mobileMenuToggle.addEventListener('click', function() {
         this.classList.toggle('active');
-        nav.classList.toggle('open');
-        if (overlay) overlay.classList.toggle('active');
-        
-        // 메뉴 닫을 때 모든 드롭다운도 닫기
-        if (!nav.classList.contains('open')) {
-            document.querySelectorAll(".dropdown").forEach(drop => {
-                drop.classList.remove("open");
-                const sub = drop.querySelector(".submenu");
-                if (sub) {
-                    sub.style.maxHeight = null;
-                }
-            });
-        }
+        mobileNav.classList.toggle('active');
+        if (mobileOverlay) mobileOverlay.classList.toggle('active');
     });
-
+    
     // 오버레이 클릭 시 메뉴 닫기
-    if (overlay) {
-        overlay.addEventListener('click', function() {
-            hamburger.classList.remove('active');
-            nav.classList.remove('open');
-            overlay.classList.remove('active');
-            // 메뉴 닫을 때 모든 드롭다운도 닫기
-            document.querySelectorAll(".dropdown").forEach(drop => {
-                drop.classList.remove("open");
-                const sub = drop.querySelector(".submenu");
-                if (sub) {
-                    sub.style.maxHeight = null;
-                }
-            });
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', function() {
+            mobileMenuToggle.classList.remove('active');
+            mobileNav.classList.remove('active');
+            mobileOverlay.classList.remove('active');
         });
     }
-}
-
-// DOM이 로드되면 즉시 실행
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMobileMenu);
-} else {
-    initMobileMenu();
+    
+    // 드롭다운 토글 (플러스 버튼)
+    mobileNav.querySelectorAll('.dropdown > a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (window.innerWidth <= 1230) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const parent = this.parentElement;
+                const submenu = parent.querySelector('.submenu');
+                
+                if (!submenu) return;
+                
+                const isOpen = parent.classList.contains('open');
+                
+                // 다른 드롭다운 닫기
+                mobileNav.querySelectorAll('.dropdown').forEach(drop => {
+                    if (drop !== parent) {
+                        drop.classList.remove('open');
+                        const sub = drop.querySelector('.submenu');
+                        if (sub) {
+                            sub.style.maxHeight = null;
+                        }
+                    }
+                });
+                
+                // 현재 드롭다운 토글
+                if (!isOpen) {
+                    parent.classList.add('open');
+                    setTimeout(() => {
+                        submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                    }, 10);
+                } else {
+                    parent.classList.remove('open');
+                    submenu.style.maxHeight = null;
+                }
+            }
+        }, false);
+    });
 }
 
 // Dropdown toggle with smooth animation (모바일 최적화)
-document.querySelectorAll(".dropdown > a").forEach(link => {
-    link.addEventListener("click", function (e) {
-        if (window.innerWidth <= 1230) {
-            e.preventDefault();
-            e.stopPropagation();
-            const parent = this.parentElement;
-            const submenu = parent.querySelector(".submenu");
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll(".dropdown > a").forEach(link => {
+        link.addEventListener("click", function (e) {
+            if (window.innerWidth <= 1230) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const parent = this.parentElement;
+                const submenu = parent.querySelector(".submenu");
 
-            if (!submenu) return;
+                if (!submenu) return;
 
-            const isOpen = parent.classList.contains("open");
+                const isOpen = parent.classList.contains("open");
 
-            // Accordion behavior: close others
-            document.querySelectorAll(".dropdown").forEach(drop => {
-                if (drop !== parent) {
-                    drop.classList.remove("open");
-                    const sub = drop.querySelector(".submenu");
-                    if (sub) {
-                        sub.style.maxHeight = null;
+                // Accordion behavior: close others
+                document.querySelectorAll(".dropdown").forEach(drop => {
+                    if (drop !== parent) {
+                        drop.classList.remove("open");
+                        const sub = drop.querySelector(".submenu");
+                        if (sub) {
+                            sub.style.maxHeight = null;
+                        }
+                    }
+                });
+
+                // Toggle this one
+                if (!isOpen) {
+                    parent.classList.add("open");
+                    setTimeout(() => {
+                        submenu.style.maxHeight = submenu.scrollHeight + "px";
+                    }, 10);
+                } else {
+                    parent.classList.remove("open");
+                    submenu.style.maxHeight = null;
+                }
+            }
+        }, false);
+    });
+});
+
+// 서브메뉴 링크 클릭 시 (모바일)
+(function() {
+    function initSubmenuLinks() {
+        document.querySelectorAll(".submenu a").forEach(subLink => {
+            subLink.addEventListener("click", function (e) {
+                if (window.innerWidth <= 1230) {
+                    const href = this.getAttribute("href");
+                    // 페이지 이동이 있는 경우에만 메뉴 닫기
+                    if (href && href !== "#" && href !== "javascript:void(0);" && !href.startsWith("#")) {
+                        const mobileMenuToggle = document.getElementById('hamburger');
+                        const mobileNav = document.getElementById('main-menu');
+                        const mobileOverlay = document.getElementById('overlay');
+                        
+                        if (mobileMenuToggle && mobileNav) {
+                            mobileMenuToggle.classList.remove('active');
+                            mobileNav.classList.remove('active');
+                            if (mobileOverlay) mobileOverlay.classList.remove('active');
+                        }
                     }
                 }
-            });
-
-            // Toggle this one
-            if (!isOpen) {
-                parent.classList.add("open");
-                // 작은 딜레이로 부드러운 애니메이션
-                setTimeout(() => {
-                    submenu.style.maxHeight = submenu.scrollHeight + "px";
-                }, 10);
-            } else {
-                parent.classList.remove("open");
-                submenu.style.maxHeight = null;
-            }
-        }
-    });
-});
-
-// 서브메뉴 링크 클릭 시 메뉴 닫지 않도록 (모바일)
-document.querySelectorAll(".submenu a").forEach(subLink => {
-    subLink.addEventListener("click", function (e) {
-        if (window.innerWidth <= 1230) {
-            // 서브메뉴 링크는 정상적으로 이동
-            // 메뉴는 유지하되, 페이지 이동 후 자동으로 닫힘
-            const href = this.getAttribute("href");
-            if (href && href !== "#" && href !== "javascript:void(0);") {
-                // 페이지 이동 전에 메뉴 닫기
-                setTimeout(() => {
-                    nav.classList.remove("open");
-                    overlay.classList.remove("active");
-                    menuIcon.style.display = "inline";
-                    closeIcon.style.display = "none";
-                }, 100);
-            }
-        }
-    });
-});
+            }, false);
+        });
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSubmenuLinks);
+    } else {
+        initSubmenuLinks();
+    }
+})();
 
 // 모바일에서 스크롤 시 메뉴 닫기
 let lastScrollTop = 0;
