@@ -1060,6 +1060,34 @@
             </div>
         </div>
     </footer>
+    <!-- 오른쪽 사이드바 아이콘 -->
+    <div style="position: fixed; right: 30px; bottom: 160px; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <!-- 첫 번째: 명함확인 -->
+        <a href="#" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; height: 80px; background: #1E3A5F; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); padding: 10px;" title="명함확인">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 4px;">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="7" r="4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="color: #fff; font-size: 11px; font-weight: 600; text-align: center; line-height: 1.2;">명함확인</span>
+        </a>
+        <!-- 두 번째: 전화상담 -->
+        <a href="tel:1533-9902" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; height: 80px; background: #00C2FF; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); padding: 10px;" title="전화상담">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 4px;">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="color: #fff; font-size: 11px; font-weight: 600; text-align: center; line-height: 1.2;">전화상담</span>
+        </a>
+        <!-- 세 번째: 블로그 -->
+        <a href="https://blog.naver.com/prunox_1" target="_blank" style="display: block; width: 80px; height: 80px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); overflow: hidden; background: #03C75A;" title="네이버블로그">
+            <img src="assets/images/2026-01-26 20 16 48.png" alt="네이버블로그" style="width: 100%; height: 100%; object-fit: contain; padding: 8px;">
+        </a>
+        <!-- 네 번째: 카카오상담 -->
+        <a href="https://open.kakao.com/o/sxbzlndi" target="_blank" style="display: block; width: 80px; height: 80px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); overflow: hidden; background: #FEE500;" title="카카오상담">
+            <img src="assets/images/2026-01-26 20 17 14.png" alt="카카오상담" style="width: 100%; height: 100%; object-fit: contain; padding: 8px;">
+        </a>
+        <!-- 다섯 번째: 위로 가기 화살표 (기존 버튼 스타일) -->
+        <button class="bottom-top-button" style="position: relative; right: auto; bottom: auto; width: 50px; height: 50px; border-radius: 50%; margin: 0; padding: 0; font-size: 30px;">↑</button>
+    </div>
     <!-- ====================== Bottom To Top Button ======================= -->
     <button class="bottom-top-button">↑</button>
     <script src="assets/javascript/jquery.js"></script>
