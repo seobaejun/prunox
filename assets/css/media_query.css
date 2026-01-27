@@ -108,97 +108,282 @@
     .menu li span {
         display: none;
     }
+    
+    /* 데스크톱 네비게이션 숨기기 */
+    .desktop-nav {
+        display: none !important;
+    }
+    
+    /* 모바일 네비게이션 바 스타일 */
+    /* 햄버거 메뉴 버튼 */
+    .hamburger {
+        display: block;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.8);
+        border: none;
+        padding: 0;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .hamburger img {
+        display: none !important;
+    }
+    
+    /* 햄버거 아이콘 3개 선 (::before, ::after, box-shadow로 중간 선) */
+    .hamburger::before {
+        content: '';
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 25px;
+        height: 3px;
+        background: white;
+        transition: all 0.3s ease;
+        box-shadow: 0 9px 0 white;
+    }
+    
+    .hamburger::after {
+        content: '';
+        position: absolute;
+        bottom: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 25px;
+        height: 3px;
+        background: white;
+        transition: all 0.3s ease;
+    }
+    
+    .hamburger .menu-icon,
+    .hamburger .close-icon {
+        display: none !important;
+    }
+    
+    /* 햄버거 메뉴 활성화 시 X 모양 */
+    .hamburger.active::before {
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%) rotate(45deg);
+        box-shadow: none;
+    }
+    
+    .hamburger.active::after {
+        bottom: 50%;
+        transform: translateX(-50%) translateY(50%) rotate(-45deg);
+    }
+    
+    .logo img {
+        width: 150px;
+    }
+    
+    /* 모바일 네비게이션 메뉴 */
+    .nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: linear-gradient(135deg, #1a0a2e 0%, #0a0a0a 100%);
+        z-index: 9998;
+        transition: right 0.3s ease;
+        overflow-y: auto;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+    
+    .nav.open {
+        right: 0;
+    }
+    
+    .dsad {
+        display: none;
+    }
+    
     .for-mobile-menu {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        height: 100%;
     }
-    .hamburger {
-        display: block;
-        z-index: 1002;
-        transition: all 0.3s ease;
-        width: 50px;
-        height: 50px;
-        background: #00C2FF;
-        border-radius: 50%;
-        position: relative;
-        cursor: pointer;
-    }
-    .hamburger img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 28px;
-    }
-    .logo img {
-        width: 150px;
-    }
+    
+    /* 모바일 로고 */
     .mobile-logo {
-        display: block;
-        max-width: 100%;
-    }
-    .nav {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        flex-direction: column;
-        align-items: flex-start;
-        background: #FFF;
-        min-height: 100vh;
-        width: 300px;
-        padding: 20px;
-        overflow: auto;
-        transition: left 0.4s ease;
-        z-index: 999;
-    }
-    .dsad {
         position: absolute;
-        bottom: 0;
-        left: 0;
+        top: 20px;
+        left: 20px;
+        width: 120px;
+        padding: 0;
+        margin: 0;
+        border: none;
+    }
+    
+    .mobile-logo img {
         width: 100%;
-        display: block;
-        z-index: -1;
+        height: auto;
+        max-height: none;
     }
-    .nav.open {
-        left: 0;
-    }
+    
+    /* 모바일 메뉴 리스트 */
     .menu {
+        list-style: none;
+        padding: 80px 0 20px 0;
+        margin: 0;
         flex-direction: column;
         width: 100%;
         gap: 0;
     }
+    
     .menu li {
         width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
+    
+    .menu li:last-child {
+        border-bottom: none;
+    }
+    
     .menu li a {
+        display: block;
+        padding: 15px 20px;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
         width: 100%;
-        padding: 15px 5px;
-        display: flex;
-        align-items: center;
+        min-height: auto;
         justify-content: space-between;
     }
+    
+    .menu li a:hover,
+    .menu li a.active {
+        background: rgba(255, 255, 255, 0.1);
+        padding-left: 30px;
+    }
+    
+    .menu li.dropdown > a::after {
+        content: '+';
+        font-size: 20px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.3s ease;
+        margin-left: 10px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+    
+    .menu li.dropdown.open > a::after {
+        content: '−';
+        transform: rotate(0deg);
+        color: #00C2FF;
+        border-color: #00C2FF;
+        background-color: rgba(0, 194, 255, 0.2);
+    }
+    
     .submenu {
         position: static;
-        background: #f5f5f5;
+        background: rgba(0, 0, 0, 0.2);
         box-shadow: none;
         display: block;
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.4s ease;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         padding: 0;
         border-top: none;
         border-radius: 0;
     }
+    
     .dropdown.open .submenu {
-        max-height: 500px;
+        max-height: 600px;
     }
+    
     .submenu li {
         padding: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
+    
+    .submenu li:last-child {
+        border-bottom: none;
+    }
+    
     .submenu li a {
-        padding: 12px 15px;
+        padding: 12px 20px 12px 40px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+        transition: all 0.3s ease;
+        display: block;
+        min-height: auto;
+    }
+    
+    .submenu li a:hover,
+    .submenu li a:active {
+        background: rgba(255, 255, 255, 0.1);
+        color: #00C2FF;
+        padding-left: 50px;
+    }
+    
+    /* 모바일 메뉴 오버레이 */
+    .overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9997;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .overlay.active {
+        opacity: 1;
+    }
+    
+    /* 스크롤바 스타일 (모바일 메뉴) */
+    .nav::-webkit-scrollbar {
+        width: 5px;
+    }
+    
+    .nav::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+    }
+    
+    .nav::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* 태블릿 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .nav {
+        max-width: 350px;
     }
     .nav-actions .call {
         display: flex;
@@ -208,6 +393,8 @@
         margin-top: 30px;
         gap: 15px;
         width: 100%;
+        padding: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     .get-quote-btn {
         width: 100%;
@@ -891,6 +1078,87 @@
     }
 }
 @media (max-width:425px) {
+    /* 모바일 네비게이션 추가 최적화 */
+    .nav {
+        width: 85%;
+        max-width: 280px;
+    }
+    .hamburger {
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+    .hamburger::before,
+    .hamburger::after {
+        width: 22px;
+        height: 2px;
+    }
+    .hamburger .menu-icon {
+        width: 22px;
+        height: 2px;
+    }
+    .mobile-logo {
+        width: 100px;
+        top: 15px;
+        left: 15px;
+    }
+    .hamburger {
+        width: 52px;
+        height: 52px;
+    }
+    .hamburger img {
+        width: 24px;
+    }
+    .menu li a {
+        padding: 16px 15px;
+        font-size: 16px;
+        min-height: 52px;
+    }
+    .submenu li a {
+        padding: 14px 20px;
+        font-size: 14px;
+        min-height: 44px;
+    }
+    .mobile-logo img {
+        max-height: 45px;
+    }
+    
+    /* 푸터 모바일 추가 최적화 (작은 화면) */
+    footer > div:last-child {
+        padding: 30px 15px !important;
+    }
+    
+    footer > div:last-child > div {
+        gap: 25px !important;
+    }
+    
+    footer > div:last-child > div > div:first-child img {
+        max-width: 120px !important;
+    }
+    
+    footer > div:last-child > div > div:nth-child(2) p {
+        font-size: 13px !important;
+        margin-bottom: 8px !important;
+    }
+    
+    footer > div:last-child > div > div:last-child img {
+        max-width: 100px !important;
+    }
+    
+    footer > div:last-child > div > div:last-child h2 {
+        font-size: 16px !important;
+    }
+    
+    footer > div:last-child > div > div:last-child p {
+        font-size: 18px !important;
+    }
+    
+    footer > div:first-child > div > div > div a {
+        font-size: 11px !important;
+        gap: 10px !important;
+    }
     .card-containe {
         padding: 20px;
     }
@@ -929,6 +1197,89 @@
     }
     .footer-med-icons-main {
         gap: 10px;
+    }
+}
+
+/* 푸터 모바일 최적화 */
+@media (max-width: 768px) {
+    /* 푸터 메인 콘텐츠 영역 */
+    footer > div:last-child {
+        padding: 40px 15px !important;
+    }
+    
+    footer > div:last-child > div {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 30px !important;
+        text-align: center !important;
+    }
+    
+    /* 로고 영역 */
+    footer > div:last-child > div > div:first-child {
+        margin: 0 !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+    
+    footer > div:last-child > div > div:first-child img {
+        max-width: 150px !important;
+    }
+    
+    /* 회사 정보 영역 */
+    footer > div:last-child > div > div:nth-child(2) {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+    
+    footer > div:last-child > div > div:nth-child(2) p {
+        white-space: normal !important;
+        margin-bottom: 10px !important;
+        line-height: 1.6 !important;
+        font-size: 14px !important;
+        word-break: keep-all !important;
+    }
+    
+    /* 은행 정보 영역 */
+    footer > div:last-child > div > div:last-child {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    footer > div:last-child > div > div:last-child img {
+        margin: 0 auto 10px auto !important;
+    }
+    
+    footer > div:last-child > div > div:last-child h2,
+    footer > div:last-child > div > div:last-child p {
+        text-align: center !important;
+    }
+    
+    /* 푸터 상단 링크 모바일 최적화 */
+    footer > div:first-child {
+        padding: 15px 0 !important;
+    }
+    
+    footer > div:first-child > div > div {
+        margin: 0 !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+    
+    footer > div:first-child > div > div > div {
+        margin: 0 !important;
+        gap: 15px !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+    
+    footer > div:first-child > div > div > div a {
+        font-size: 12px !important;
     }
     .sec-text {
         font-size: 28px;
