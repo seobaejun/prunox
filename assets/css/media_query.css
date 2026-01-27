@@ -120,6 +120,16 @@ footer a[href="admin-login.html"]:hover {
     opacity: 0.6 !important;
 }
 
+/* PC 버전에서 모바일 네비게이션 숨기기 (기본값) */
+@media (min-width: 1231px) {
+    .mobile-menu-toggle,
+    .mobile-overlay,
+    .mobile-nav {
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
+
 @media (max-width: 1230px) {
     .menu li span {
         display: none;
