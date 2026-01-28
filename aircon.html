@@ -1100,11 +1100,122 @@
     <script src="assets/javascript/gsap.js"></script>
     <script src="assets/javascript/scrollMagic.min.js"></script>
     <script src="assets/javascript/animation.gsap.min.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="assets/javascript/firebase-config.js"></script>
     <script src="assets/javascript/script.js?v=25"></script>
     <script src="assets/javascript/navigation-mega-menu.js"></script>
     <script>
+        // Firebase 초기화
+        let db;
+        
+        // Firebase 초기화 함수
+        function initFirebase() {
+            if (typeof firebase !== 'undefined' && typeof firebaseConfig !== 'undefined') {
+                try {
+                    firebase.initializeApp(firebaseConfig);
+                    db = firebase.firestore();
+                    console.log('Firebase 초기화 완료');
+                    return true;
+                } catch (error) {
+                    console.error('Firebase 초기화 오류:', error);
+                    return false;
+                }
+            } else {
+                console.error('Firebase 또는 firebaseConfig가 로드되지 않았습니다.');
+                return false;
+            }
+        }
+        
         /*--------------Gallery Slider------------------*/
         document.addEventListener('DOMContentLoaded', function() {
+            // Firebase 초기화
+            initFirebase();
+            
+            // 문의하기 폼 드롭다운 선택 기능
+            document.querySelectorAll('.formDropDown-ul-list li a').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const selectedText = this.textContent.trim();
+                    const dropdown = document.querySelector('.formDropDown');
+                    if (dropdown) {
+                        dropdown.textContent = selectedText;
+                    }
+                });
+            });
+
+            // 문의하기 폼 제출
+            const contactBtn = document.querySelector('.contac-form-main .btn-quote');
+            if (contactBtn) {
+                contactBtn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    
+                    console.log('문의하기 폼 제출 시도');
+                    
+                    if (typeof firebase === 'undefined' || !db) {
+                        console.error('Firebase 초기화 실패, 재시도...');
+                        if (!initFirebase()) {
+                            alert('Firebase가 초기화되지 않았습니다. 잠시 후 다시 시도해주세요.');
+                            return;
+                        }
+                    }
+
+                    const form = document.querySelector('.contac-form-main');
+                    const nameInput = form.querySelector('input[name="full name"]');
+                    const emailInput = form.querySelector('input[name="email"]');
+                    const phoneInput = form.querySelector('input[name="phone"]');
+                    const messageInput = form.querySelector('input[name="message"]');
+                    const serviceSelect = form.querySelector('.formDropDown');
+
+                    // 필수 필드 검증
+                    if (!nameInput || !nameInput.value.trim() || !emailInput || !emailInput.value.trim() || !phoneInput || !phoneInput.value.trim()) {
+                        alert('필수 항목을 모두 입력해주세요.');
+                        return;
+                    }
+
+                    // 청소 영역 선택 검증
+                    if (!serviceSelect || serviceSelect.textContent.trim() === '목록에서 선택') {
+                        alert('청소 영역을 선택해주세요.');
+                        return;
+                    }
+
+                    const submitBtn = this;
+                    const originalText = submitBtn.innerHTML;
+                    
+                    submitBtn.style.pointerEvents = 'none';
+                    submitBtn.innerHTML = '제출 중...';
+
+                    try {
+                        const contactData = {
+                            name: nameInput.value.trim(),
+                            email: emailInput.value.trim(),
+                            phone: phoneInput.value.trim(),
+                            service_area: serviceSelect ? serviceSelect.textContent.trim() : '',
+                            message: messageInput ? messageInput.value.trim() : '',
+                            status: 'pending',
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        };
+
+                        console.log('문의하기 데이터 저장 시도:', contactData);
+                        await db.collection('contacts').add(contactData);
+                        
+                        alert('문의가 성공적으로 제출되었습니다. 빠른 시일 내에 연락드리겠습니다.');
+                        nameInput.value = '';
+                        emailInput.value = '';
+                        phoneInput.value = '';
+                        if (messageInput) messageInput.value = '';
+                        if (serviceSelect) serviceSelect.textContent = '목록에서 선택';
+                    } catch (error) {
+                        console.error('문의 제출 오류:', error);
+                        alert('문의 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    } finally {
+                        submitBtn.style.pointerEvents = 'auto';
+                        submitBtn.innerHTML = originalText;
+                    }
+                });
+            }
+            
             var gallerySlider = new Swiper('.gallery-slider', {
                 slidesPerView: 4,
                 spaceBetween: 30,
