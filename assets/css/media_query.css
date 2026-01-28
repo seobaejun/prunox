@@ -523,6 +523,22 @@ footer a[href="admin-login.html"]:hover {
         pointer-events: none !important;
     }
     
+    /* 네이버블로그와 카카오톡 버튼 - 박스 크기는 고정, 이미지만 크게 */
+    .quick-menu > a.quick-menu-blog,
+    .quick-menu > a.quick-menu-kakao {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .quick-menu > a.quick-menu-blog img,
+    .quick-menu > a.quick-menu-kakao img {
+        width: 120% !important;
+        height: 120% !important;
+        object-fit: contain !important;
+        padding: 0 !important;
+        transform: scale(1.15) !important;
+    }
+    
     .quick-menu > button.bottom-top-button {
         width: 40px !important;
         height: 40px !important;
@@ -1328,6 +1344,22 @@ footer a[href="admin-login.html"]:hover {
     footer > div:last-child > div > div:nth-child(2) p {
         font-size: 13px !important;
         margin-bottom: 8px !important;
+    }
+    
+    /* 작은 모바일 화면에서 네이버블로그와 카카오톡 버튼 - 박스 크기는 고정, 이미지만 크게 */
+    .quick-menu > a.quick-menu-blog,
+    .quick-menu > a.quick-menu-kakao {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .quick-menu > a.quick-menu-blog img,
+    .quick-menu > a.quick-menu-kakao img {
+        width: 120% !important;
+        height: 120% !important;
+        object-fit: contain !important;
+        padding: 0 !important;
+        transform: scale(1.15) !important;
     }
     
     footer > div:last-child > div > div:last-child img {
