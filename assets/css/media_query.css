@@ -146,7 +146,8 @@ footer a[href="admin-login.html"]:hover {
         display: none;
         position: fixed;
         top: 20px;
-        right: 20px;
+        right: 20px !important;
+        left: auto !important;
         z-index: 9999;
         background: rgba(0, 0, 0, 0.8);
         border: none;
@@ -192,7 +193,7 @@ footer a[href="admin-login.html"]:hover {
     
     /* 모바일 네비게이션 메뉴 */
     .mobile-nav {
-        display: none;
+        display: none !important;
         position: fixed;
         top: 0;
         right: -100%;
@@ -204,15 +205,35 @@ footer a[href="admin-login.html"]:hover {
         transition: right 0.3s ease;
         overflow-y: auto;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        pointer-events: none !important;
+        visibility: hidden !important;
     }
     
     .mobile-nav.active {
+        display: block !important;
         right: 0;
+        pointer-events: auto !important;
+        visibility: visible !important;
     }
     
-    /* 모바일 메뉴 오버레이 */
-    .mobile-overlay {
-        display: none;
+    /* 모바일 메뉴 오버레이 - 비활성화 시 완전히 제거 */
+    .mobile-overlay:not(.active) {
+        display: none !important;
+        position: absolute !important;
+        top: -9999px !important;
+        left: -9999px !important;
+        width: 1px !important;
+        height: 1px !important;
+        background: transparent !important;
+        z-index: -99999 !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        visibility: hidden !important;
+        overflow: hidden !important;
+    }
+    
+    .mobile-overlay.active {
+        display: block !important;
         position: fixed;
         top: 0;
         left: 0;
@@ -220,12 +241,71 @@ footer a[href="admin-login.html"]:hover {
         height: 100%;
         background: rgba(0, 0, 0, 0.5);
         z-index: 9997;
-        opacity: 0;
-        transition: opacity 0.3s ease;
+        opacity: 1;
+        pointer-events: auto !important;
+        visibility: visible !important;
     }
     
-    .mobile-overlay.active {
-        opacity: 1;
+    /* 기존 overlay 클래스 모바일에서 완전히 비활성화 */
+    .overlay:not(.active) {
+        pointer-events: none !important;
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        z-index: -9999 !important;
+        top: -9999px !important;
+        left: -9999px !important;
+    }
+    
+    /* 비활성화된 오버레이는 완전히 제거 */
+    .mobile-overlay:not(.active),
+    .overlay:not(.active) {
+        pointer-events: none !important;
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        z-index: -9999 !important;
+        top: -9999px !important;
+        left: -9999px !important;
+    }
+    
+    .mobile-nav:not(.active) {
+        pointer-events: none !important;
+    }
+    
+    /* 모든 클릭 가능한 요소 보장 */
+    button:not(.mobile-nav button),
+    a:not(.mobile-nav a),
+    input,
+    select,
+    textarea,
+    [onclick],
+    [role="button"] {
+        pointer-events: auto !important;
+        position: relative;
+    }
+    
+    /* 퀵메뉴는 별도로 z-index 설정 */
+    .quick-menu {
+        pointer-events: auto !important;
+        z-index: 9990 !important;
+    }
+    
+    .quick-menu > * {
+        pointer-events: auto !important;
+    }
+    
+    /* 모바일 메뉴 토글 버튼은 항상 클릭 가능 */
+    .mobile-menu-toggle {
+        pointer-events: auto !important;
+        z-index: 10001 !important;
+        right: 20px !important;
+        left: auto !important;
+        position: fixed !important;
     }
     
     /* 모바일 메뉴 리스트 */
@@ -413,6 +493,8 @@ footer a[href="admin-login.html"]:hover {
         right: 15px !important;
         bottom: 20px !important;
         gap: 8px !important;
+        z-index: 9990 !important;
+        pointer-events: auto !important;
     }
     
     .quick-menu > a,
@@ -420,34 +502,42 @@ footer a[href="admin-login.html"]:hover {
         width: 50px !important;
         height: 50px !important;
         padding: 6px !important;
+        pointer-events: auto !important;
     }
     
     .quick-menu > a svg {
         width: 20px !important;
         height: 20px !important;
         margin-bottom: 2px !important;
+        pointer-events: none !important;
     }
     
     .quick-menu > a span {
         font-size: 9px !important;
         line-height: 1.1 !important;
+        pointer-events: none !important;
     }
     
     .quick-menu > a img {
         padding: 6px !important;
+        pointer-events: none !important;
     }
     
     .quick-menu > button.bottom-top-button {
         width: 40px !important;
         height: 40px !important;
         font-size: 24px !important;
+        pointer-events: auto !important;
     }
 }
 
 /* 반응형 - 모바일에서만 표시 */
 @media (max-width: 768px) {
     .mobile-menu-toggle {
-        display: block;
+        display: block !important;
+        right: 20px !important;
+        left: auto !important;
+        position: fixed !important;
     }
     
     .mobile-nav {
@@ -1173,6 +1263,12 @@ footer a[href="admin-login.html"]:hover {
     .nav {
         width: 85%;
         max-width: 280px;
+    }
+    /* 모바일 햄버거 버튼 오른쪽 고정 */
+    .mobile-menu-toggle {
+        right: 15px !important;
+        left: auto !important;
+        top: 15px !important;
     }
     .hamburger {
         top: 15px;

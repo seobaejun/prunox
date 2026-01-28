@@ -23,12 +23,51 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mobileNav = document.getElementById('mobileNav');
     const mobileOverlay = document.getElementById('mobileOverlay');
+    
+    // 모바일에서 오버레이가 비활성화 상태일 때 클릭 차단 방지
+    function ensureOverlayNotBlocking() {
+        if (window.innerWidth <= 1230) {
+            // 모든 오버레이 요소 찾기
+            const allOverlays = document.querySelectorAll('.mobile-overlay, .overlay');
+            allOverlays.forEach(overlay => {
+                if (!overlay.classList.contains('active')) {
+                    // 완전히 DOM에서 제거하는 것처럼 만들기
+                    overlay.style.display = 'none';
+                    overlay.style.pointerEvents = 'none';
+                    overlay.style.visibility = 'hidden';
+                    overlay.style.opacity = '0';
+                    overlay.style.position = 'absolute';
+                    overlay.style.top = '-9999px';
+                    overlay.style.left = '-9999px';
+                    overlay.style.width = '0';
+                    overlay.style.height = '0';
+                    overlay.style.zIndex = '-99999';
+                }
+            });
+        }
+    }
+    
+    // 즉시 실행
+    ensureOverlayNotBlocking();
+    
+    // 페이지 로드 후에도 확인
+    window.addEventListener('load', ensureOverlayNotBlocking);
+    window.addEventListener('resize', ensureOverlayNotBlocking);
 
     if (mobileMenuToggle && mobileNav) {
         mobileMenuToggle.addEventListener('click', function() {
             this.classList.toggle('active');
             mobileNav.classList.toggle('active');
-            if (mobileOverlay) mobileOverlay.classList.toggle('active');
+            if (mobileOverlay) {
+                mobileOverlay.classList.toggle('active');
+                if (mobileOverlay.classList.contains('active')) {
+                    mobileOverlay.style.pointerEvents = 'auto';
+                    mobileOverlay.style.display = 'block';
+                } else {
+                    mobileOverlay.style.pointerEvents = 'none';
+                    mobileOverlay.style.display = 'none';
+                }
+            }
         });
         
         // 오버레이 클릭 시 메뉴 닫기
@@ -37,6 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileMenuToggle.classList.remove('active');
                 mobileNav.classList.remove('active');
                 mobileOverlay.classList.remove('active');
+                mobileOverlay.style.pointerEvents = 'none';
+                mobileOverlay.style.display = 'none';
             });
         }
         
