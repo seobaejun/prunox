@@ -19,3 +19,6 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# 히어로 원본 백업 (최적화 스크립트 생성, 커밋 제외)
+assets/images/hero-backup/

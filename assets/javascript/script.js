@@ -486,3 +486,17 @@ const SingleProject = new Swiper(".singleProject2", {
         }
     }
 });
+
+/* 예약현황 무한 스크롤: 뷰포트에 보일 때만 재생 (버퍼링/버벅임 방지) */
+document.addEventListener('DOMContentLoaded', function() {
+    var scrollContainer = document.getElementById('booking-scroll-container');
+    if (!scrollContainer) return;
+    var section = scrollContainer.closest('section');
+    if (!section) return;
+    var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            scrollContainer.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+        });
+    }, { rootMargin: '80px', threshold: 0 });
+    io.observe(section);
+});
