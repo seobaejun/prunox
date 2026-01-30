@@ -219,13 +219,89 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /*---------------------------------- Hero Slider ------------------------------*/
-const swiper = new Swiper('.hero-slider', {
+const HERO_AUTOPLAY_DELAY_MS = 5000;
+var HERO_VIDEOS = [
+    { src: "assets/video/video1.mp4", offset: 0 },
+    { src: "assets/images/s2.mp4", offset: 0.3 },
+    { src: "assets/images/s3.mp4", offset: 0.3 },
+    { src: "assets/video/video1.mp4", offset: 0 },
+];
+
+var heroVideoStage = document.querySelector(".hero-video-stage");
+var heroVideoLayers = heroVideoStage ? heroVideoStage.querySelectorAll(".hero-video-layer") : [];
+var heroVideoOverlay = document.querySelector(".hero-video-overlay");
+var heroVideoActiveIndex = 0;
+
+function showHeroVideoForSlide(realIndex) {
+    if (!heroVideoStage || heroVideoLayers.length < 2) return;
+    var info = HERO_VIDEOS[realIndex];
+    if (!info) return;
+
+    var nextLayerIndex = heroVideoActiveIndex === 0 ? 1 : 0;
+    var nextLayer = heroVideoLayers[nextLayerIndex];
+    var currentLayer = heroVideoLayers[heroVideoActiveIndex];
+
+    nextLayer.pause();
+    nextLayer.currentTime = 0;
+    nextLayer.querySelector("source").setAttribute("src", info.src);
+    nextLayer.load();
+
+    function onCanPlay() {
+        nextLayer.removeEventListener("loadeddata", onCanPlay);
+        nextLayer.removeEventListener("canplay", onCanPlay);
+        nextLayer.currentTime = info.offset;
+        nextLayer.play().catch(function () {});
+        currentLayer.classList.remove("active");
+        nextLayer.classList.add("active");
+        heroVideoActiveIndex = nextLayerIndex;
+    }
+    nextLayer.addEventListener("loadeddata", onCanPlay);
+    nextLayer.addEventListener("canplay", onCanPlay);
+}
+
+function updateHeroVideoOverlay(realIndex) {
+    if (!heroVideoOverlay) return;
+    if (realIndex === 0 || realIndex === 3) {
+        heroVideoOverlay.classList.add("visible");
+    } else {
+        heroVideoOverlay.classList.remove("visible");
+    }
+}
+
+const swiper = new Swiper(".hero-slider", {
     loop: true,
     speed: 1000,
     effect: "fade",
     slidesPerView: 1,
     autoplay: {
-        delay: 5000,
+        delay: HERO_AUTOPLAY_DELAY_MS,
+    },
+    on: {
+        init: function () {
+            var realIndex = this.realIndex;
+            var info = HERO_VIDEOS[realIndex];
+            if (info && heroVideoLayers.length > 0) {
+                var first = heroVideoLayers[0];
+                var srcEl = first.querySelector("source");
+                if (srcEl) {
+                    srcEl.setAttribute("src", info.src);
+                    first.load();
+                    first.addEventListener("loadeddata", function onFirstReady() {
+                        first.removeEventListener("loadeddata", onFirstReady);
+                        first.currentTime = info.offset;
+                        first.play().catch(function () {});
+                        first.classList.add("active");
+                    }, { once: true });
+                }
+                heroVideoActiveIndex = 0;
+            }
+            updateHeroVideoOverlay(realIndex);
+        },
+        slideChangeTransitionEnd: function () {
+            var realIndex = this.realIndex;
+            showHeroVideoForSlide(realIndex);
+            updateHeroVideoOverlay(realIndex);
+        },
     },
 });
 
