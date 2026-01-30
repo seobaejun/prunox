@@ -457,6 +457,12 @@ button {
     text-transform: uppercase;
     padding-bottom: 10px;
 }
+.hero-slider-section .needs-text {
+    color: #00C2FF;
+}
+.hero-slider-section .hero-accent {
+    color: #00C2FF;
+}
 .lets-us-do {
     color: var(--5, #FFF);
     font-size: 80px;
